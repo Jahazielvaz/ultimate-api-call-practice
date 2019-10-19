@@ -1,10 +1,11 @@
 let newRequest = new XMLHttpRequest();
+let display = document.getElementById('xml-display')
 
 $(() => {
   let btn1 = $("#xml-btn1"),
-  display = $('#xml-display');
+  // display = $('#xml-display');
 
-  let counter = 1;
+  counter = 1;
 
   btn1.on('click', () => {
     newRequest.open('GET', `https://learnwebcode.github.io/json-example/animals-${counter}.json`)
