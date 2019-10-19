@@ -1,0 +1,23 @@
+hr{
+  height: 2px;
+  background: black;
+}
+
+#form1{
+  max-width: 300px;
+  margin: 30px auto;
+  box-shadow: 2px 2px 5px 7px rgba(0, 0, 0, .3);
+  padding: 20px;
+  box-sizing: border-box;
+  background: #eee;
+  min-height: 400px;
+}
+
+input{
+  width: 90%;
+  height: 35px;
+  font-size: 25px;
+  margin: auto;
+  padding: 5px;
+  box-sizing: border-box;
+}
