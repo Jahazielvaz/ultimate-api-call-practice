@@ -1,13 +1,11 @@
 let newRequest = new XMLHttpRequest();
-let display = document.getElementById('xml-display')
+let display = document.getElementById('xml-display');
+let btn1 = document.getElementById('xml-btn1')
 
 $(() => {
-  let btn1 = $("#xml-btn1"),
-  // display = $('#xml-display');
+  let counter = 1;
 
-  counter = 1;
-
-  btn1.on('click', () => {
+  btn1.addEventListener('click', () => {
     newRequest.open('GET', `https://learnwebcode.github.io/json-example/animals-${counter}.json`)
 
     newRequest.onload = () => {
@@ -27,7 +25,7 @@ $(() => {
     counter++
 
     if(counter > 3){
-      counter = 1;
+      btn1.classList.add('no-show')
     }
     newRequest.send()
 
