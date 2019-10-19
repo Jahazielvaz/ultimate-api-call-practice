@@ -18,12 +18,9 @@ $(() => {
           `<div id="animal-container"><p class="anim"><span>Animal Name:</span>${parsedAnimals[i].name}</p>
           <p class="anim"><span>Animal Species: </span>${parsedAnimals[i].species}</p></div>`
         ]
-
       } //End of for loop
 
-      display.html(() => {
-        return animalContainer
-      })
+      display.insertAdjacentHTML('beforeend', animalContainer)
 
     } //End of onload
     counter++
