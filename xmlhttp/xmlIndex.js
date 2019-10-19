@@ -4,23 +4,33 @@ $(() => {
   let btn1 = $("#xml-btn1"),
   display = $('#xml-display');
 
+  let counter = 1;
+
   btn1.on('click', () => {
-    newRequest.open('GET', 'https://learnwebcode.github.io/json-example/animals-1.json')
+    newRequest.open('GET', `https://learnwebcode.github.io/json-example/animals-${counter}.json`)
 
     newRequest.onload = () => {
-      let parsedAnimals = JSON.parse(newRequest.responseText)
+      let parsedAnimals = JSON.parse(newRequest.responseText);
+      let animalContainer = '';
+
       for(let i = 0; i < parsedAnimals.length; i++){
-          display.html(() => {
-            return(
-              [
-                `<p><span>Animal Name: </span>${parsedAnimals[i].name}</p>`
-            ]
-            )
+        animalContainer += [
+          `<div id="animal-container"><p class="anim"><span>Animal Name:</span>${parsedAnimals[i].name}</p>
+          <p class="anim"><span>Animal Species: </span>${parsedAnimals[i].species}</p></div>`
+        ]
 
-          })
-      }
+      } //End of for loop
+
+      display.html(() => {
+        return animalContainer
+      })
+
     } //End of onload
+    counter++
 
+    if(counter > 3){
+      counter = 1;
+    }
     newRequest.send()
 
   }) //End of btn1 click event
