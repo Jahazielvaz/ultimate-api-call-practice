@@ -3,7 +3,7 @@ $(() => {
   let form1 = $("#form1");
 
   form1.on('submit', (e) => {
-    let info = $("#name").val();
+    let info = $("form input").val();
     let data = {stuff: info};
     e.preventDefault()
     $.ajax({
@@ -11,8 +11,8 @@ $(() => {
       url: '/api',
       data: data,
       success: () => {
-        userOutput.text(data.stuff)
-        // console.log(data.stuff)
+        userOutput.html(data.stuff)
+        console.log(data.stuff.email)
       }
     }) //End of ajax
 
