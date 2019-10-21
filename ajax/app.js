@@ -9,8 +9,8 @@ let ObjectId = require("mongodb").ObjectID;
 
  let DATABASE_NAME = 'start',
  USER_NAME = 'imagineTech',
- PASSWORD = 'Chato225$#@',
- URL_STRING = `mongodb://${USER_NAME}:${PASSWORD}@start-shard-00-00-xnmb4.mongodb.net:27017,start-shard-00-01-xnmb4.mongodb.net:27017,start-shard-00-02-xnmb4.mongodb.net:27017/test?ssl=true&replicaSet=start-shard-0&authSource=admin&retryWrites=true&w=majority`;
+ PASSWORD = 'Chato225%24%23%40',
+ URL_STRING = `mongodb+srv://${USER_NAME}:${PASSWORD}@start-xnmb4.mongodb.net/test?retryWrites=true&w=majority`;
 
 
 // PARSERS
