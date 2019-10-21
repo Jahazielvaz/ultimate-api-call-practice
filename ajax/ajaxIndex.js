@@ -14,7 +14,7 @@ $(() => {
       // dataType: 'application/json',
       success: () => {
         location.reload(true)
-        console.log(data)
+        userOutput.text(data)
       }
     }) //End of ajax
 
