@@ -1,19 +1,29 @@
 $(() => {
-  let form = $("#form1");
-  let output = $("#user-output");
-  let data = JSON.parse(form.val())
+  let userOutput = $("#user-output");
+  let form1 = $("#form1");
 
-  form.on('submit', (e) => {
+  form1.on('submit', (e) => {
+    let info = $("#name").val();
+    let data = {stuff: info};
+
+    e.preventDefault()
     $.ajax({
       type: 'POST',
+      url: '/',
       data: data,
-      contentType: 'application/json',
+      // dataType: 'application/json',
       success: () => {
-        console.log(response.json(data))
-
+        location.reload(true)
+        console.log(data)
       }
-    })
-    e.preventDefault()
-  })
+    }) //End of ajax
 
-})
+  }) //End of form one
+
+
+
+
+
+
+
+}) //End of jQuery
