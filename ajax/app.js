@@ -24,14 +24,39 @@ let database, collection;
 // REQUESTS
 app.use('/', express.static(__dirname))
 
-app.get('/api', (req, res) => {
+app.get('/people', (req, res) => {
   res.sendFile(__dirname + '/ajaxIndex.html')
 })
 
-app.post('/api', urlencoded, (req, res) => {
-  console.log(req.body)
-  res.sendFile(__dirname + '/successPage.html')
-})
+app.get("/people", (request, response) => {
+    collection.find({}).toArray((error, result) => {
+        if(error) {
+            return response.status(500).send(error);
+        }
+        response.send(result);
+    });
+});
+
+app.post('/people', (req, res) => {
+  collection.insert(req.body, (error, result) => {
+    if(error){
+      return res.status(500).send(error)
+    }
+    res.sendFile(__dirname + '/successPage.html')
+  })
+}) //end of post request
+
+// DATABASE PART 2
+MongoClient.connect(URL_STRING, {useNewUrlParser: true}, (error, client) => {
+  if(error){
+    throw error;
+  }
+
+  database = client.db(DATABASE_NAME);
+  database.collection('signin');
+  console.log(`Connected to ${DATABASE_NAME}`)
+
+}) //Mongo Client Connection
 
 
 //server
