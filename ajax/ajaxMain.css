@@ -21,3 +21,10 @@ input{
   padding: 5px;
   box-sizing: border-box;
 }
+
+#user-output{
+  padding: 30px;
+  font-size: 25px;
+  font-weight: bolder;
+  font-family: sans-serif;
+}

@@ -7,11 +7,11 @@ let urlencoded = bodyParser.urlencoded({extended: false});
 
 app.use('/', express.static(__dirname))
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.sendFile(__dirname + '/ajaxIndex.html')
 })
 
-app.post('/', urlencoded, (req, res) => {
+app.post('/api', urlencoded, (req, res) => {
   console.log(req.body)
   res.sendFile(__dirname + '/successPage.html')
 })

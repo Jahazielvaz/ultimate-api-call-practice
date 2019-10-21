@@ -5,16 +5,14 @@ $(() => {
   form1.on('submit', (e) => {
     let info = $("#name").val();
     let data = {stuff: info};
-
     e.preventDefault()
     $.ajax({
       type: 'POST',
-      url: '/',
+      url: '/api',
       data: data,
-      // dataType: 'application/json',
       success: () => {
-        location.reload(true)
-        userOutput.text(data)
+        userOutput.text(data.stuff)
+        // console.log(data.stuff)
       }
     }) //End of ajax
 
