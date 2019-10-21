@@ -1,0 +1,43 @@
+*{
+  list-style: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+#form-messages{
+  background: rgb(255, 232, 232);
+  padding: 10px;
+  border: 2px solid red;
+  color: red;
+  max-width: 300px;
+  display: none;
+}
+
+#form{
+  border: 2px solid black;
+  max-width: 250px;
+  margin: auto;
+  padding: 20px;
+}
+
+#btn-submit{
+  width: 80%;
+  height: 30px;
+  background: lightgreen;
+  /* color:white; */
+  font-size: 20px;
+  font-weight: bolder;
+  box-shadow: 2px 2px 3px 5px rgba(0, 0, 0, .3);
+  margin: 20px auto;
+  display: block;
+
+}
+
+input{
+  display: block;
+  box-shadow: 1px 1px 3px 4px rgba(0, 0, 0, .3);
+  width: 80%;
+  margin: 5px auto;
+  height: 30px;
+}
