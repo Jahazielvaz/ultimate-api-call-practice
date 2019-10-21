@@ -13,3 +13,16 @@
 - I was having an insertAdjacentHTML() is not a function bug that I couldn't fix. The reason why is because I was accessing the target element through jQuery, but this method is a js method. And you can't use js methods with jQuery methods, or vise versa.
 --------------------------------
 #AJAX CRUD OPERATIONS/REQUESTS
+
+
+--------------------------------
+#MONGO DB CONNECTION
+
+## New Concepts
+- URL Encoding and unsafe ASCII characters: Basically, there are symbols (Which might be all of them) that are not read properly by the browser in a url according to the ASCII translation. These symbols need to be replaced by their hex counterpart. These symbols include but are not limited to $ # % etc.
+  Resources
+  - Google Definition: URL encoding replaces unsafe ASCII characters with a "%" followed by two hexadecimal digits. URLs cannot contain spaces. URL encoding normally replaces a space with a plus (+) sign or with %20.
+  - Page that explains this further: https://www.w3schools.com/tags/ref_urlencode.asp
+- curl Command in Commandline: Apparently this helps you make api calls from your commandline. I guess developers use it to test their connections. But from what little I researched it sounds like you can do a lot more with it
+  Resources
+  - Page teaching about curl: http://osxdaily.com/2017/01/30/curl-post-request-command-line-syntax/

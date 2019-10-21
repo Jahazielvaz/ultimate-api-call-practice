@@ -19,7 +19,6 @@ app.use(bodyParser.json())
 
 let database, collection;
 
-// let userOutput = document.getElementById('user-output');
 
 // REQUESTS
 app.use('/', express.static(__dirname))
@@ -47,20 +46,22 @@ app.post('/people', (req, res) => {
 }) //end of post request
 
 // DATABASE PART 2
-MongoClient.connect(URL_STRING, {useNewUrlParser: true}, (error, client) => {
-  if(error){
-    throw error;
-  }
 
-  database = client.db(DATABASE_NAME);
-  database.collection('signin');
-  console.log(`Connected to ${DATABASE_NAME}`)
-
-}) //Mongo Client Connection
 
 
 //server
 let port = 3000;
 app.listen(port, () => {
+  MongoClient.connect(URL_STRING, {useNewUrlParser: true}, (error, client) => {
+    if(error){
+      throw error;
+    }
+
+    database = client.db(DATABASE_NAME);
+    collection = database.collection('people');
+    console.log(`Connected to ${DATABASE_NAME}`)
+
+  }) //Mongo Client Connection
+
   console.log(`Listening to port ${port}`)
 })
