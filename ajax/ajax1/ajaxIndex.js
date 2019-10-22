@@ -3,7 +3,7 @@
 //   let form1 = $("#form1");
 //
 //   form1.on('submit', (e) => {
-//     let info = $("form input").val();
+//     let info = $(".input").val();
 //     let data = {stuff: info};
 //     e.preventDefault()
 //     $.ajax({
@@ -12,7 +12,7 @@
 //       data: data,
 //       success: () => {
 //         userOutput.html(data.stuff)
-//         console.log(data.stuff.email)
+//         console.log(data.stuff)
 //       }
 //     }) //End of ajax
 //
