@@ -26,3 +26,6 @@
 - curl Command in Commandline: Apparently this helps you make api calls from your commandline. I guess developers use it to test their connections. But from what little I researched it sounds like you can do a lot more with it
   Resources
   - Page teaching about curl: http://osxdaily.com/2017/01/30/curl-post-request-command-line-syntax/
+- process.env / let port = process.env.port || 3000: From what I read, this is really important for scaling your databases, and being able to connect to other servers. I don't fully know what it does, but we need to get good with this entire environment
+  Resources
+  - Website explaining what the environment property does and how to use it: https://codeburst.io/process-env-what-it-is-and-why-when-how-to-use-it-effectively-505d0b2831e7
