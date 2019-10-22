@@ -1,0 +1,50 @@
+*{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+#main-container{
+  padding: 10px;
+  max-width: 500px;
+  text-align: center;
+  margin: 100px auto;
+}
+
+h1{
+  border-bottom: 1px solid black;
+  max-width: 250px;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+input, button, textarea{
+  height: 40px;
+  width: 300px;
+  box-shadow: inset 1px 1px 2px 2px rgba(0, 0, 0, .3);
+  display: block;
+  margin: 0 auto 10px;
+  font-size: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+label{
+  text-align: left;
+  font-size: 20px;
+  display: block;
+  width: 300px;
+  margin: auto;
+}
+
+textarea{
+  height: 100px;
+  resize: none;
+}
+
+button{
+  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, .3);
+  background: lightgreen;
+  font-weight: bolder;
+}
