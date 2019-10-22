@@ -27,10 +27,10 @@ app.get('/people', (req, res) => {
   res.sendFile(__dirname + '/ajaxIndex.html')
 })
 
-app.get("/people", (request, response) => {
+app.get("/people", (req, res) => {
     collection.find({}).toArray((error, result) => {
         if(error) {
-            return response.status(500).send(error);
+            return res.status(500).send(error);
         }
         response.send(result);
     });
