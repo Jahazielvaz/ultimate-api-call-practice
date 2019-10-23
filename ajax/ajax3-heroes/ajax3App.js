@@ -19,14 +19,6 @@ PASSWORD = 'Chato225%24%23%40',
 URL_STRING = `mongodb+srv://${USER_NAME}:${PASSWORD}@start-xnmb4.mongodb.net/test?retryWrites=true&w=majority`;
 
 // Hero Object
-{
-  power: '',
-  speed: '',
-  technique: '',
-  intelligence: '',
-  cooperativeness: ''
-}
-
 let heroes = [
   {
     name: 'Izuku Midorya',
@@ -84,12 +76,13 @@ app.get('/', (req, res) => {
 })
 
 
+
 // Supporting Variables
 let database, collection;
 
 
 // Server
-let port = PROCESS.env.port || 5000;
+let port = process.env.port || 5000;
 app.listen(port, () => {
 
   MongoClient.connect(URL_STRING, {useNewUrlParser: true}, (err, client) => {
@@ -99,6 +92,7 @@ app.listen(port, () => {
 
     database = client.db(DATABASE_NAME);
     collection = database.collection('heroes');
+    // collection.insert(heroes)
   })
 
 
