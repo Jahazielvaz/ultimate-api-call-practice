@@ -24,7 +24,7 @@ app.get('/contact', (req, res) => {
 })
 
 app.post('/contact', (req, res) => {
-  collection.insertOne(req.body);
+  collection.insert(req.body);
   res.sendFile(__dirname + '/ajax2Response.html');
 })
 
