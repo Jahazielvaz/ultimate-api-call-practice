@@ -9,7 +9,7 @@ app.use(express.static(__dirname));
 
 // Routes
 app.get('/', (req, res) => {
-  // res.send('It works')
+  res.sendFile(__dirname + '/ajax4Index.html')
 })
 
 
