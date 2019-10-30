@@ -1,7 +1,8 @@
+// EXPRESS SETUP
 let express = require('express'),
 app = express(),
 bodyParser = require('body-parser'),
-urlencoded = bodyParser.urlencoded({extended: true});
+urlencoded = bodyParser.urlencoded({extended: false});
 
 // Middleware
 app.use(urlencoded);
@@ -9,9 +10,8 @@ app.use(express.static(__dirname));
 
 // Routes
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/ajax4Index.html')
+  res.sendFile(__dirname + '/ajax4Index.html');
 })
-
 
 
 // Server
@@ -21,5 +21,23 @@ app.listen(port, (err) => {
     throw error
   }
 
-  console.log(`Listening to port ${port}`)
+  console.log(`Listening to port ${port}`);
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
