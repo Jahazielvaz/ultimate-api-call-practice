@@ -1,0 +1,89 @@
+/* USER SECTION */
+body{
+  list-style: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.user-page-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+
+}
+
+.user-forms{
+  margin: auto;
+  width: 400px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+h1{
+  text-align: center;
+  font-family: 'lucida-grande';
+}
+
+a{
+  text-decoration: none;
+  color: red;
+  text-align: center;
+  font-weight: bolder;
+  text-shadow: 1px 1px 2px white;
+  transition: 1s;
+
+}
+
+a:hover{
+  color: rgba(255, 0, 0, .5);
+  transition: 1s;
+  margin: 10px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, .3);
+}
+
+label{
+  display: block;
+  margin: auto;
+  width: 90%;
+}
+
+input, button{
+  display: block;
+  margin: 0px auto 20px;
+  width: 90%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+input{
+  box-shadow: inset 1px 1px 2px 2px rgba(0, 0, 0, .1);
+}
+
+button{
+  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, .5);
+  background: lightgreen;
+  font-size: 20px;
+  font-weight: bolder;
+  font-family: serif;
+  text-shadow: 1px 1px 2px white;
+  cursor: pointer;
+  transition: 1s;
+}
+
+/* BACKGROUNDS */
+#register-container{
+  background: url('https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Foutdooradventurecenter.com%2Fwp-content%2Fuploads%2F2015%2F01%2FBanner-Slider-Jones-Sunset1.jpg&f=1&nofb=1') center center no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+}
+
+#signin-container{
+  background: url('https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.messagetoeagle.com%2Fwp-content%2Fuploads%2F2014%2F02%2Fdreamsparallel10-1.jpg&f=1&nofb=1') center center no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+}

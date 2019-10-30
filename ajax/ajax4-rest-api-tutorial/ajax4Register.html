@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="/ajax4Users.css">
+  </head>
+  <body>
+    <div id="register-container" class="user-page-container">
+      <form id="register-form" action="/register" method="post" class="user-forms">
+        <h1 id="register-title">Register</h1>
+
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" placeholder="Bob Marley">
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" placeholder="bob@marley.com">
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password">
+
+        <button class="landing-buttons" type="submit">Submit</button>
+        <a href="/"><p>Return to landing page</p></a>
+      </form>
+    </div>
+  </body>
+</html>

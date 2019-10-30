@@ -13,6 +13,14 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/ajax4Index.html');
 })
 
+app.get('/signin', (req, res) => {
+  res.sendFile(__dirname + '/ajax4Signin.html');
+})
+
+app.get('/register', (req, res) => {
+  res.sendFile(__dirname + '/ajax4Register.html');
+})
+
 
 // Server
 let port = process.env.port || 3000;
