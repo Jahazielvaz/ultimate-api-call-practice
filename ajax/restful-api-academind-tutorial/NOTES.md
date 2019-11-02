@@ -10,7 +10,7 @@ Rest or Restful stands for Representational State Transfer.
 ## Restful api constraints (The guidelines it needs to follow in order to be a restful api)
 - Client Server Architecture: Separation of concerns, meaning our restful api should not care about the ui or application requesting it
 - Stateless: No client-context (or session) is stored on the server. It doesn't care about what or how many clients are connecting to it. It doesn't store anything that binds it to a specific application or client.
-- Cacheability:
-- Layered System:
-- Uniform Interface:
-- Code On Demand (Optional): 
+- Cacheability: Responses must define themselves as cacheable or not cacheable.
+- Layered System: Restful api allows for intermediate servers to be able to interact with the client, without the client ever knowing about it. I believe this is useful for security purposes. This in between server could be used to forwards requests or send responses, etc instead of the original server. We don't give the guarantee that our restful api is the final point of the request.
+- Uniform Interface: Resources are identified in requests, transferred data is decoupled from db schema. Also it's good to have self descriptive messages or links to further Resources.
+- Code On Demand (Optional):
