@@ -20,6 +20,12 @@ router.get('/:orderId', (req, res, next) => {
   })
 })
 
+router.delete('/:orderId', (req,res, next) => {
+  res.status(200).json({
+    message: 'Order has been deleted'
+  })
+})
+
 
 
 

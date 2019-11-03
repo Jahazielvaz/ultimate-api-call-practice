@@ -33,6 +33,7 @@ app.get('/register', (req, res) => {
 
 app.post('/register', (req, res) => {
   collection.insert(req.body)
+  res.sendFile(__dirname + '/ajax4Journal.html')
 })
 
 // Variables
@@ -47,7 +48,7 @@ app.listen(port, () => {
     if(error){
       throw error;
     }
-    
+
     database = client.db(DATABASE_NAME);
     collection = database.collection('registration');
   })

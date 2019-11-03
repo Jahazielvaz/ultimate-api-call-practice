@@ -1,11 +1,9 @@
-let http = require('http');
-let app = require('./app');
+const http = require('http');
+const app = require('./app');
+const server = http.createServer(app);
 
-let port = process.env.port || 3000;
-let server = http.createServer(app);
-
-
+const port = process.env.port || 3000;
 server.listen(port, () => {
 
-  console.log(`Now listening to port ${port}`)
+  console.log(`Listening to port ${port}`);
 })

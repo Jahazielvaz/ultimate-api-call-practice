@@ -1,0 +1,101 @@
+*{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+#journal-container{
+  display: flex;
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ytimg.com%2Fvi%2FgTVhKvqvctY%2Fmaxresdefault.jpg&f=1&nofb=1')center center no-repeat;
+  background-size: cover;
+  height: 100vh;
+  align-items: center;
+}
+
+#text-container{
+  float: left;
+  /* border: 2px solid black; */
+  width: auto;
+  height: 90vh;
+  margin: 20px;
+  flex-grow: 3;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-family: tahoma;
+  color: white;
+  text-shadow: 1px 1px 3px black;
+}
+
+#entries-controls-container{
+  width: 500px;
+  height: 90vh;
+  float: right;
+  margin: 20px;
+  background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F1426%2F0052%2Fproducts%2FKTpaperbag8511.jpg%3Fv%3D1501866120&f=1&nofb=1')center center no-repeat;
+  background-size: cover;
+  opacity: .9;
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: inset 1px 1px 2px 2px rgba(0, 0, 0, .3);
+}
+
+/* #controls{
+  border: 1px solid green;
+}
+
+#entries-list{
+  border: 1px solid red;
+} */
+
+#controls{
+  text-align: center;
+}
+
+.journal-buttons{
+  margin: 10px;
+  height: 40px;
+  width: 120px;
+  background: rgba(57, 21, 0);
+  color: #c37e4c;
+  border: 3px solid #c37e4c;
+  font-size: 16px;
+  font-weight: bolder;
+  font-family: fantasy;
+  line-height: 30px;
+  display: inline;
+}
+
+.title-text{
+  text-align: center;
+  font-style: italic;
+  margin: 5px;
+}
+
+.sample-entries{
+  width: 90%;
+  margin: 15px auto;
+  padding: 10px;
+  box-sizing: border-box;
+  background: rgba(244,206, 161);
+  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, .3);
+}
+
+hr{
+  margin: 10px;
+  height: 2px;
+  background: rgba(59, 19, 40);
+}
+
+ul{
+  text-align: center;
+}
+
+li{
+  display: inline;
+  margin: 10px;
+}
