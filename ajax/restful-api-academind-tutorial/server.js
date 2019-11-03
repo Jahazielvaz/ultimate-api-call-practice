@@ -1,18 +1,11 @@
-// EXPRESS SETUP
-let express = require('express'),
-app = express(),
-bodyParser = require('body-parser'),
-urlencoded = bodyParser.urlencoded({extended: false});
+// Server Setup
 
-// Middleware
-app.use(urlencoded);
-app.use(express.static(__dirname));
+let http = require('http');
+let app = require('./app');
 
-
-
-// Server
 let port = process.env.port || 3000;
-app.listen(port, () => {
+let server = http.createServer(app);
 
-  console.log(`Now listening to port ${port}`);
+server.listen(port, () => {
+  console.log(`Listening to port ${port}`);
 })
