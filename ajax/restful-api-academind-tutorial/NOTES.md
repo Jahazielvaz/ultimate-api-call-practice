@@ -17,4 +17,10 @@ Rest or Restful stands for Representational State Transfer.
 - IMPORTANT: Note that these concepts are merely suggestive. Not all restful apis need to have all of these aspects together. However, the most important concept is definitely stateless. Sessions shouldn't be stored. The api shouldn't have any relation to the client connecting to it.
 
 ## Things I need to improve on massively
-- Error handling: I really don't know how the error object works, and all these ways to handle errors, I'm not even sure I know what the use of it is. Everything seems to be working without it, so I don't fully know. 
+- Error handling: I really don't know how the error object works, and all these ways to handle errors, I'm not even sure I know what the use of it is. Everything seems to be working without it, so I don't fully know.
+- Writing Cors Headers, and headers in general.
+
+## Names of Headers Related to Access Control
+- res.header("Access-Control-Allow-Origin", "http/the-chosen-urlname.com") : This grants cors access the the specified url. If you want all urls to have access, then you just need to specify " * "
+- res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization") : Here, you're specifying which types of headers your api accepts. Again, if you want any type of header to be given to you as a response, then simply specify it with " * "
+- res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE"): This header sets the kind of requests your api accepts. 

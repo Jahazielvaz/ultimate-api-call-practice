@@ -8,9 +8,13 @@ app.use(bodyParser.json());
 
 // Routes
 const players = require('./players');
+const playerInfo = require('./playerinfo');
+
+// Headers
 
 // Requests
-app.use('/players', players)
+app.use('/players', players);
+app.use('/playerinfo', playerInfo);
 
 
 module.exports = app;

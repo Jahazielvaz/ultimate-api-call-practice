@@ -7,6 +7,13 @@ router.get('/', (req, res, next) => {
   })
 })
 
+router.post('/', (req, res, next) => {
+  res.status(201).json({
+    username: req.body.username,
+    password: req.body.password
+  })
+})
+
 
 
 
