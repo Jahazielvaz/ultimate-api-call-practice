@@ -14,6 +14,5 @@ const EditProduct = require('./routes/editProduct');
 
 //Routing
 app.use('/products', Products);
-app.use('/edit-product', EditProduct);
 
 module.exports = app;
