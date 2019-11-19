@@ -5,7 +5,19 @@ const morgan = require('morgan');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(morgan('dev'))
+app.use(morgan('dev'));
+
+// CORS Handling
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+
+  if(req.method === 'OPTIONS'){
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, PATCH, DELETE, POST');
+    return res.status(200).json({})
+  }
+
+})
 
 // Routes
 const productsRoute = require('./api/routes/products');
