@@ -23,4 +23,12 @@ Rest or Restful stands for Representational State Transfer.
 ## Names of Headers Related to Access Control
 - res.header("Access-Control-Allow-Origin", "http/the-chosen-urlname.com") : This grants cors access the the specified url. If you want all urls to have access, then you just need to specify " * "
 - res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization") : Here, you're specifying which types of headers your api accepts. Again, if you want any type of header to be given to you as a response, then simply specify it with " * "
-- res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE"): This header sets the kind of requests your api accepts. 
+- res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE"): This header sets the kind of requests your api accepts.
+
+## Things to explore further
+- Handling CORS headers: Learn the different header options, and how to execute them. Make it a habit to always use it in your restful apis
+- req.method : Research this and how it works, and how you can use it. Remember that the browser will always send an options request first when you send a post request, or a put request. Here the browser sees if it can make that request happen.
+- Writing Restful Api Documentation: Learn the proper way to write it, and the kind of content you need to have, and make it a habit to write it for all your apis.
+- next(): While I do understand a bit about the concept of the next() method in middleware, I'm still not clear as to when to use it, and why I don't always need to use it. Research this method further and make sure that you're crystal clear as to how it works and when to use it.
+- IMPORTANT - process.env Storing Data: This allows you to store sensitive data, and access it in a safe manner without the risk of man in the middle attacks that could take your passwords, or get admin passwords. Research this a little bit more, so you can figure out exactly how it works, and exactly how to use it.
+- nodemon.json File: Apparently this file allows you to configure the environment variables. Explore this a little bit more and find out exactly what it does and how it works. 

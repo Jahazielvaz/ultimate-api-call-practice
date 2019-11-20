@@ -2,10 +2,19 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
+
+
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
+
+// DB
+const USER_NAME = 'imagineTech';
+mongoose.connect(`mongodb+srv://${USER_NAME}:${process.env.MONGO_ATLAS_PW}@start-xnmb4.mongodb.net/test?retryWrites=true&w=majority`, {
+  useMongoClient: true
+})
 
 // CORS Handling
 app.use((req, res, next) => {
@@ -16,7 +25,7 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Methods', 'GET, PUT, PATCH, DELETE, POST');
     return res.status(200).json({})
   }
-
+   next()
 })
 
 // Routes

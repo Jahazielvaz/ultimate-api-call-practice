@@ -29,3 +29,15 @@
 - process.env / let port = process.env.port || 3000: From what I read, this is really important for scaling your databases, and being able to connect to other servers. I don't fully know what it does, but we need to get good with this entire environment
   Resources
   - Website explaining what the environment property does and how to use it: https://codeburst.io/process-env-what-it-is-and-why-when-how-to-use-it-effectively-505d0b2831e7
+-------------------------------------------
+# AJAX 3 HEROES PROJECT
+## Description
+  In this project the user will be able to interact with the heroes from My Hero Academia anime to various degrees, based on an MVP process.
+
+## MVP
+### MV1
+  - The only goal of mv1 is for us to pass in a index of characters with their names, stats, image urls, etc; into the database, so that then we can mess with the find() method as well as learn how to pull data down from a database,
+
+### MV2
+  - We still need to detail this section, but I'm thinking we're going to have features such as allowing the user to create their own characters with their individual quirks and have their stats be assigned through a series of randomizing features
+  - I also think it'll be fun if we have users be able to type in a character's name and either get a "Character is not in index" message, or the character with all it's stats will be retrieved on the fly from the db using ajax or fetch. There are other ideas but those are good to start with for now.

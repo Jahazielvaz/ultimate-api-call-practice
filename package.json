@@ -4,7 +4,7 @@
   "description": "",
   "main": "./ajax/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ajax4App.js",
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,8 @@
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "mongodb": "^3.3.3",
+    "mongoose": "^5.7.7",
+    "morgan": "^1.9.1",
     "request": "^2.88.0"
   }
 }
