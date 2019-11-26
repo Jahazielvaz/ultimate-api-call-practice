@@ -5,30 +5,28 @@ router = express.Router();
 Registration = require('../models/users');
 
 
-router.get('/', (req, res, next) => {
-  res.status(200).json({
-    message: 'This route will allow us to access all users'
-  })
-})
+// router.get('/', (req, res, next) => {
+//   res.status(200).json({
+//     message: 'This route will allow us to access all users'
+//   })
+// })
 
-router.post('/register', (req, res, next) => {
+router.post('/', (req, res, next) => {
+
   const registration = new Registration({
-    _id: mongoose.Types.ObjectId,
+    _id: mongoose.Types.ObjectId(),
     name: req.body.name,
     email: req.body.email,
     password: req.body.password
   })
 
-  registration.save()
-  .then((item) => {
-    console.log(item)
-  })
-  .catch((err) => {
-    console.log(err)
+  registration.save().then((result) => {
+    console.log(result)
+  }).catch((error) => {
+    console.log(error)
   })
 
-  res.status(201)
-  .json({
+  res.status(201).json({
     message: "Your profile has been successfully created",
     info: registration
   })

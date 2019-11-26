@@ -5,6 +5,6 @@ const userSchema = mongoose.Schema({
   name: String,
   email: String,
   password: String
-}, {collection: 'registration'})
+}, {collection: 'registration'});
 
 module.exports = mongoose.model('Registration', userSchema)
