@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 
 // Middleware
 app.use(urlencoded);
-// app.use(express.static(__dirname));
+app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
@@ -28,22 +28,21 @@ const userRoutes = require('./api/routes/users');
 app.use('/users', userRoutes)
 
 // UI Routes
-// app.get('/', (req, res) => {
-//   res.sendFile(__dirname + '/ajax4Index.html');
-// })
-//
-// app.get('/signin', (req, res) => {
-//   res.sendFile(__dirname + '/ajax4Signin.html');
-// })
-//
-// app.get('/register', (req, res) => {
-//   res.sendFile(__dirname + '/ajax4Register.html');
-// })
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/ajax4Index.html');
+})
 
-// app.post('/register', (req, res) => {
-//   res.sendFile(__dirname + '/ajax4Journal.html')
-//   res.status(201).json({data: req.body._id})
-// })
+app.get('/signin', (req, res) => {
+  res.sendFile(__dirname + '/ajax4Signin.html');
+})
+
+app.get('/register', (req, res) => {
+  res.sendFile(__dirname + '/ajax4Register.html');
+})
+
+app.post('/users', (req, res) => {
+  res.sendFile(__dirname + '/ajax4Journal.html')
+})
 
 
 

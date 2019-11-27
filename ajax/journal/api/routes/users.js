@@ -5,11 +5,11 @@ router = express.Router();
 Registration = require('../models/users');
 
 
-// router.get('/', (req, res, next) => {
-//   res.status(200).json({
-//     message: 'This route will allow us to access all users'
-//   })
-// })
+router.get('/', (req, res, next) => {
+  res.status(200).json({
+    message: 'This route will allow us to access all users'
+  })
+})
 
 router.post('/', (req, res, next) => {
 
@@ -20,7 +20,8 @@ router.post('/', (req, res, next) => {
     password: req.body.password
   })
 
-  registration.save().then((result) => {
+  registration.save()
+  .then((result) => {
     console.log(result)
   }).catch((error) => {
     console.log(error)
