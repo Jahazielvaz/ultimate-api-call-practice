@@ -13,7 +13,7 @@ app.use(morgan('dev'));
 
 // DB
 const USER_NAME = 'imagineTech';
-const DATABASE = 'restfulapi'
+const DATABASE = 'restfulapi';
 mongoose.connect(`mongodb+srv://${USER_NAME}:${process.env.MONGO_ATLAS_PW}@start-xnmb4.mongodb.net/${DATABASE}?retryWrites=true&w=majority`, {
   useNewUrlParser: true,
   useUnifiedTopology: true

@@ -5,12 +5,13 @@ const mongoose = require('mongoose');
 // DB
 Product = require('../models/product');
 
-// router.get('/', (req, res, next) => {
-//   res.status(200).json({
-//     message: 'Handling get requests to /products'
-//   });
-//
-// });
+router.get('/', (req, res, next) => {
+  Product.find()
+  .exec()
+  .then()
+  .catch();
+
+});
 
 router.post('/', (req, res, next) => {
 
@@ -20,44 +21,50 @@ router.post('/', (req, res, next) => {
     price: req.body.price
   })
 
-  product.save().then((result) => {
+  product.save()
+  .then((result) => {
     console.log(result)
-  }).catch((error) => {
-    console.log(error)
+    res.status(201).json({
+      message: 'Handling post requests to /products',
+      createdProduct: product
+    });
   })
-
-  res.status(201).json({
-    message: 'Handling post requests to /products',
-    createdProduct: product
-  });
+  .catch((error) => {
+    console.log(error)
+    res.status(500).json(error)
+  })
 
 });
 
-// router.get('/:productId', (req, res, next) => {
-//   const id = req.params.productId;
-//   Product.findById(id)
-//   .exec()
-//   .then(doc => {
-//     console.log(doc)
-//     res.status(200).json(doc)
-//   })
-//   .catch(error => {
-//     console.log(error)
-//     res.status(500).json({error: error})
-//   })
-// });
+router.get('/:productId', (req, res, next) => {
+  const id = req.params.productId;
+  Product.findById(id)
+  .exec()
+  .then(doc => {
+    console.log('from database', doc)
+    if(doc){
+      res.status(200).json(doc)
+    } else {
+      res.status(404).json({message: "Such ID does not exist in our records"})
+    }
+  })
+  .catch(error => {
+    console.log(error)
+    res.status(500).json({error: error})
+  })
+});
 
-// router.patch('/:productId', (req, res, next) => {
-//   res.status(200).json({
-//     message: 'Product updated successfully'
-//   });
-// });
+router.patch('/:productId', (req, res, next) => {
+  res.status(200).json({
+    message: 'Product updated successfully'
+  });
+});
 
-// router.delete('/:productId', (req, res, next) => {
-//   res.status(200).json({
-//     message: 'Product has been deleted'
-//   });
-// });
+router.delete('/:productId', (req, res, next) => {
+  res.status(200).json({
+    message: 'Product has been deleted'
+  });
+});
 
 
 
