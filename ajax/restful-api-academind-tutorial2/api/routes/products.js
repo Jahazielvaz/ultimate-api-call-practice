@@ -8,8 +8,16 @@ Product = require('../models/product');
 router.get('/', (req, res, next) => {
   Product.find()
   .exec()
-  .then()
-  .catch();
+  .then((doc) => {
+    console.log(doc);
+    res.status(200).json(doc)
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).json({
+      error: err
+    })
+  });
 
 });
 
