@@ -1,0 +1,7 @@
+{
+  "env": {
+    "DATABASE": "summonerswar",
+    "PASSWORD": "Chato225%24%23%40",
+    "COLLECTION": "characters"
+  }
+}
