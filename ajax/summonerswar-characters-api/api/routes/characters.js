@@ -20,7 +20,13 @@ router.post('/', (req, res, next) => {
 
   character.save()
   .then((result) => {
-    console.log('It works')
+    if(req.fresh){
+      console.log('This is a fresh new request')
+    } else {
+      console.log(`The request for Character ${result.name} has been made`)
+    }
+
+    console.log(req.ip)
     res.status(201)
     .json({
       message: 'Congratulations. Your character has been posted',

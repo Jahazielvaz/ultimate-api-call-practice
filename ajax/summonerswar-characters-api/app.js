@@ -16,6 +16,14 @@ mongoose.connect(`mongodb+srv://imagineTech:${process.env.PASSWORD}@start-xnmb4.
   useUnifiedTopology: true
 })
 
+// CORS HEADERS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
+
+  next()
+})
+
 // Routes
 const characterRoutes = require('./api/routes/characters');
 app.use('/characters', characterRoutes);
