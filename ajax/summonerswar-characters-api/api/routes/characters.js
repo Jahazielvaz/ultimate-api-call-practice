@@ -19,9 +19,18 @@ router.post('/', (req, res, next) => {
 
 
   character.save()
-  res.status(201).json({
-    message: 'Congratulations. Your character has been added',
-    info: character
+  .then((result) => {
+    console.log('It works')
+    res.status(201)
+    .json({
+      message: 'Congratulations. Your character has been posted',
+      character: result
+    })
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500)
+    .json(err)
   })
 })
 
