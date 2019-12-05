@@ -46,6 +46,10 @@ router.get('/:characterId', (req, res, next) => {
   });
 });
 
+router.patch('/:characterId', (req, res, next) => {
+  const id = req.body.characterId;
+  Characters.update({_id: id}, {$set: {name: req.body.name}})
+})
 
 
 
