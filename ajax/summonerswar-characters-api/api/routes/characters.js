@@ -31,7 +31,20 @@ router.post('/', (req, res, next) => {
   });
 });
 
-
+router.get('/:characterId', (req, res, next) => {
+  const characterId = req.params.characterId;
+  Characters.findById(characterId)
+  .exec()
+  .then((result) => {
+    console.log(`Congratulations! You have summoned ${result}`);
+    res.status(200).json(result)
+  })
+  .catch((err) => {
+    res.status(404).json({
+      message: 'That Id does not exist'
+    });
+  });
+});
 
 
 
