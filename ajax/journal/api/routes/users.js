@@ -6,8 +6,15 @@ Registration = require('../models/users');
 
 
 router.get('/', (req, res, next) => {
-  res.status(200).json({
-    message: 'This route will allow us to access all users'
+  Registration.find()
+  .exec()
+  .then((data) => {
+    res.status(200)
+    .json(data)
+  })
+  .catch((err) => {
+    res.status(500)
+    .json({error: err})
   })
 })
 
@@ -30,6 +37,35 @@ router.post('/', (req, res, next) => {
   res.status(201).json({
     message: "Your profile has been successfully created",
     info: registration
+  })
+})
+
+router.get('/:userId', (req, res, next) => {
+  const userId = req.params.userId;
+  Registration.findById(userId)
+  .exec()
+  .then((user) => {
+    if(user){
+      res.status(200).json(user)
+      console.log(user)
+    } else {
+      res.status(404).json({message: "User Not Found"})
+    }
+  })
+  .catch(err => {res.status(500).json({Error: {error: err}})})
+})
+
+router.patch('/:userId', (req, res, next) => {
+  const userId = req.params.userId;
+  Registration.update({_id: userId}, {$set: {name: req.body.name}})
+  .exec()
+  .then((newUser) => {
+    res.status(201).json({message: `Congratulations. Your name has been updated to`,
+        newUser
+    })
+  })
+  .catch((err) => {
+    res.status(500).json({Error: err})
   })
 })
 

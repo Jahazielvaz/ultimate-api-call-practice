@@ -40,7 +40,7 @@ app.get('/register', (req, res) => {
   res.sendFile(__dirname + '/ajax4Register.html');
 })
 
-app.post('/users', (req, res) => {
+app.post('/register', (req, res) => {
   res.sendFile(__dirname + '/ajax4Journal.html')
 })
 
