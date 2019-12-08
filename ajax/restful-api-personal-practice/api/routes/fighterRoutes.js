@@ -81,7 +81,23 @@ router.patch('/:fighterId', (req, res, next) => {
 });
 
 router.delete('/:fighterId', (req, res, next) => {
-  res.status(200).json({message: 'Fighter has been deleted'})
+  const id = req.params.fighterId;
+  Fighters.remove({_id: id})
+  .exec()
+  .then(data => {
+    res.status(200).json({
+      message: 'Fighter has been deleted',
+      data
+    });
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json({
+      error: {
+        error: err
+      }
+    })
+  })
 })
 
 module.exports = router;
