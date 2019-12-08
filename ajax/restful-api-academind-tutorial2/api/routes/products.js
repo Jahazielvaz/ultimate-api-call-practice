@@ -7,9 +7,13 @@ Product = require('../models/product');
 
 router.get('/', (req, res, next) => {
   Product.find()
+  .select('name price _id')
   .exec()
   .then((doc) => {
-    console.log(doc);
+    const response = {
+      count: doc.length,
+      products: doc
+    }
     res.status(200).json(doc)
   })
   .catch((err) => {
