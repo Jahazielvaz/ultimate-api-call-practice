@@ -1,14 +1,17 @@
-const express = require('express'),
-app = express();
+const express = require('express');
+const app = express();
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
 
-// routes
-const userRoutes = require('./api/routes/userRoutes');
-
-// Middleware
+// App Middleware
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json())
-app.use('/users', userRoutes);
+app.use(bodyParser.json());
+app.use(morgan('dev'));
+
+// Routes
+const fighterRoutes = require('./api/routes/fighterRoutes');
+app.use('/fighters', fighterRoutes);
 
 
 module.exports = app;
