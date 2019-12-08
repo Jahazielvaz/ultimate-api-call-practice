@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose = require('mongose');
+const mongoose = require('mongoose');
 
 const fighterSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
