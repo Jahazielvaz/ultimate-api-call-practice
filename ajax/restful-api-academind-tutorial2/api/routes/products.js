@@ -12,9 +12,19 @@ router.get('/', (req, res, next) => {
   .then((doc) => {
     const response = {
       count: doc.length,
-      products: doc
+      products: doc.map(info => {
+        return {
+          name: info.name,
+          price: info.price,
+          id: info._id,
+          request: {
+            type: 'GET',
+            url: `http://localhost:3000/products/${info._id}`
+          }
+        }
+      })
     }
-    res.status(200).json(doc)
+    res.status(200).json(response)
   })
   .catch((err) => {
     console.log(err)
