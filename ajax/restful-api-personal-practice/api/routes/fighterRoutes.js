@@ -4,7 +4,23 @@ const Fighters = require('../models/fighterModel');
 const mongoose = require('mongoose');
 
 router.get('/', (req, res, next) => {
-  res.status(200).json({message: 'Heres a list of all the fighters'});
+  Fighters.find()
+  .exec()
+  .then((data) => {
+    if(data){
+      res.status(200).json(data);
+    } else {
+      res.status(404).json({message: 'Invalid Entry'});
+    };
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({
+      error: {
+        error: err
+      }
+    });
+  })
 });
 
 router.post('/', (req, res, next) => {
@@ -46,7 +62,22 @@ router.get('/:fighterId', (req, res, next) => {
 });
 
 router.patch('/:fighterId', (req, res, next) => {
-  res.status(200).json({message: 'Fighter has been updated'});
+  const id = req.params.fighterId;
+  const updateOps = {};
+  for(const ops of req.body){
+    updateOps[ops.propName] = ops.value;
+  }
+  Fighters.update({_id: id},{$set: updateOps})
+  .exec()
+  .then(fighter => {
+    res.status(201).json({
+      message: 'Congratulations! Your fighter has been updated',
+      fighter
+    })
+  })
+  .catch(err => {
+    res.status(500).json({Error: {error: err}})
+  })
 });
 
 router.delete('/:fighterId', (req, res, next) => {
