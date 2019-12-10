@@ -20,6 +20,10 @@ router.get('/', (req, res, next) => {
           request: {
             type: 'GET',
             url: `http://localhost:3000/products/${info._id}`
+          },
+          postRequest: {
+            url: 'http://localhost:3000/products',
+            requiredProperties: 'name, price'
           }
         }
       })
@@ -45,10 +49,18 @@ router.post('/', (req, res, next) => {
 
   product.save()
   .then((result) => {
-    console.log(result)
     res.status(201).json({
-      message: 'Handling post requests to /products',
-      createdProduct: product
+      message: 'Product has been posted',
+      createdProduct: {
+        _id: result._id,
+        name: result.name,
+        price: result.price
+      },
+      requestData: {
+        type: 'GET',
+        url: `http://localhost:3000/products/${result._id}`,
+        fetchAllData: 'http://localhost:3000/products'
+      }
     });
   })
   .catch((error) => {
@@ -61,11 +73,19 @@ router.post('/', (req, res, next) => {
 router.get('/:productId', (req, res, next) => {
   const id = req.params.productId;
   Product.findById(id)
+  .select('name price _id')
   .exec()
   .then(doc => {
     console.log('from database', doc)
     if(doc){
-      res.status(200).json(doc)
+      res.status(200).json({
+        message: 'Product Request',
+        doc,
+        postRequest: {
+          url: 'http://localhost:3000/products',
+          requiredFields: 'name, price'
+        }
+      })
     } else {
       res.status(404).json({message: "Such ID does not exist in our records"})
     }
