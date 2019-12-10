@@ -57,7 +57,12 @@ router.get('/:userId', (req, res, next) => {
 
 router.patch('/:userId', (req, res, next) => {
   const userId = req.params.userId;
-  Registration.update({_id: userId}, {$set: {name: req.body.name}})
+  const userUpdateFiltering = {}
+  for(const updater of req.body){
+    userUpdateFiltering[updater] = updater.value
+  }
+
+  Registration.update({_id: userId}, {$set: userUpdateFiltering})
   .exec()
   .then((newUser) => {
     res.status(201).json({message: `Congratulations. Your name has been updated to`,
