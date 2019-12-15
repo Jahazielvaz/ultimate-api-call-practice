@@ -23,9 +23,11 @@ mongoose.connect(`mongodb+srv://${USER_NAME}:${process.env.JOURNAL_PASSWORD}@sta
 
 // Restful Routes
 const userRoutes = require('./api/routes/users');
+const userEntries = require('./api/routes/entries');
 
 // Restful Routes Middleware
 app.use('/users', userRoutes)
+app.use('/entries', userEntries)
 
 // UI Routes
 app.get('/', (req, res) => {
