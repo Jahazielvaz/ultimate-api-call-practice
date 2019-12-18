@@ -43,8 +43,8 @@ router.post('/', (req, res, next) => {
   .then((result) => {
     const entries = new Entry({
       _id: mongoose.Types.ObjectId(),
-      pup: req.body.puppy,
-      entry: req.body.entry,
+      user: req.body.userId,
+      entry: req.body.monkeys,
       date: req.body.date
     })
 
