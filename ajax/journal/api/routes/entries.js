@@ -38,7 +38,7 @@ router.get('/',(req, res, next) => {
 
 // Posting a new entry
 router.post('/', (req, res, next) => {
-  Registration.findById(req.body.userId)
+  Registration.findById(req.body.user)
   .exec()
   .then((result) => {
     const entries = new Entry({
