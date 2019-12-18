@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Entry = require('../models/entriesModel');
+const Registration = require('../models/users');
 
 // Getting all entries that exist
 router.get('/',(req, res, next) => {
@@ -37,25 +38,28 @@ router.get('/',(req, res, next) => {
 
 // Posting a new entry
 router.post('/', (req, res, next) => {
-  const entries = new Entry({
-    _id: mongoose.Types.ObjectId(),
-    userId: req.body.userId,
-    entry: req.body.entry,
-    date: req.body.date
-  })
-
-  entries.save()
+  Registration.findById(req.body.userId)
+  .exec()
   .then((result) => {
-    res.status(200).json({
-      message: "entry has been posted",
-      entryObject: result,
-      request: {
-        url: 'localhost:3000/'
-      }
+    const entries = new Entry({
+      _id: mongoose.Types.ObjectId(),
+      pup: req.body.puppy,
+      entry: req.body.entry,
+      date: req.body.date
     })
-  })
-  .catch()
-})
+
+    return entries.save()
+  }) // End of then block
+  .then(entry => {
+    res.status(201).json({
+      entry: entry
+    })
+  })//End of then block
+  .catch(err => {
+    res.status(500).json({error: err})
+  }) //End of catch
+
+}) // End of post route
 
 // Editing an existing entry
 // router.patch()
