@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const Entries = require('../models/entriesModel');
+const Entry = require('../models/entriesModel');
 
 // Getting all entries that exist
-router.get((req, res, next) => {
-  Entries.find()
+router.get('/',(req, res, next) => {
+  Entry.find()
   .exec()
   .then(result => {
     res.status(200).json({
@@ -14,9 +14,9 @@ router.get((req, res, next) => {
         message: 'How to post an entry',
         url: 'localhost:3000/entries',
         body: {
-          userId: Number,
-          entry: String,
-          date: String
+          userId: 'Number',
+          entry: 'String',
+          date: 'String'
         }
       }
     }) //End of res
@@ -36,7 +36,26 @@ router.get((req, res, next) => {
 // router.get()
 
 // Posting a new entry
-// router.post()
+router.post('/', (req, res, next) => {
+  const entries = new Entry({
+    _id: mongoose.Types.ObjectId(),
+    userId: req.body.userId,
+    entry: req.body.entry,
+    date: req.body.date
+  })
+
+  entries.save()
+  .then((result) => {
+    res.status(200).json({
+      message: "entry has been posted",
+      entryObject: result,
+      request: {
+        url: 'localhost:3000/'
+      }
+    })
+  })
+  .catch()
+})
 
 // Editing an existing entry
 // router.patch()
