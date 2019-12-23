@@ -31,7 +31,21 @@ router.get('/',(req, res, next) => {
 }) //End of get route
 
 // Getting all entries from a single user
-// router.get()
+router.get('/:userId', (req, res, next) => {
+  const id = req.params.userId;
+  Registration.findById(id)
+  .exec()
+  .then(response => {
+    res.status(200).json({
+      entries: response.entries
+    })
+  })
+  .catch(err => {
+    res.status(500).json({
+      error: {error: err}
+    })
+  })
+})
 
 // Getting a single entry from a single user
 // router.get()

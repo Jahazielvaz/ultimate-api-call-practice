@@ -29,6 +29,19 @@ const userEntries = require('./api/routes/entries');
 app.use('/users', userRoutes)
 app.use('/entries', userEntries)
 
+// CORS HANDLING
+app.use('/', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+
+  if(req.method === 'OPTIONS'){
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE');
+    return res.status(200).json({})
+  }
+
+  next();
+})
+
 // UI Routes
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/ajax4Index.html');
