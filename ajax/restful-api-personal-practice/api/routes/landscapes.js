@@ -21,7 +21,7 @@ router.patch('/', (req, res, next) => {
 
 })
 
-// Deleting a landscape 
+// Deleting a landscape
 router.delete('/', (req, res, next) => {
 
 })
