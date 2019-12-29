@@ -1,0 +1,14 @@
+// Getting a single landscape
+router.get('/', (req, res, next) => {
+
+})
+
+// Updating a landscape
+router.patch('/', (req, res, next) => {
+
+})
+
+// Deleting a landscape
+router.delete('/', (req, res, next) => {
+
+})
