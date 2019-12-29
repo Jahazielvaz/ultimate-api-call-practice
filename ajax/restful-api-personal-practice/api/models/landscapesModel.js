@@ -5,6 +5,6 @@ const locationsSchema = mongoose.Schema({
   name: {type: String, required: true},
   address: {type: String, required: true},
   description: {type: String, required: true}
-}, {collection: 'locations'})
+}, {collection: 'locations'});
 
 module.exports = mongoose.model('Location', locationsSchema)
