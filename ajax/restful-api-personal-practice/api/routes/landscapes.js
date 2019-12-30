@@ -15,9 +15,18 @@ router.post('/', (req, res, next) => {
 
   place.save()
   .then(result => {
-    res.status(201).json(result)
+    res.status(201).json({
+      landscape: {
+        _id: result._id,
+        name: result.name,
+        address: result.address,
+        description: result.description
+      }
+    })
   })
   .catch(error => {res.status(500).json(error)})
+
+  next()
 })
 
 module.exports = router;
