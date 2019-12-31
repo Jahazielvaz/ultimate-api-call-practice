@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 // DB
-mongoose.connect(`mongodb+srv://imagineTech:${process.env.PASSWORD}@start-xnmb4.mongodb.net/test?retryWrites=true&w=majority`, {
+mongoose.connect(`mongodb+srv://imagineTech:${process.env.PASSWORD}@start-xnmb4.mongodb.net/Landscapes?retryWrites=true&w=majority`, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
