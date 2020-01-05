@@ -9,9 +9,15 @@ router.get('/', (req, res, next) => {
   .then(response => {
     res.status(200).json({
       message: 'Here are the requested landscapes',
-      list: response
-    })
-  })
+      list: response.map(result => {
+        return {
+          landscape: result,
+          request: 'GET',
+          url: `localhost:3000/landscapes/${result._id}`
+        }
+      })
+    }) //End of res
+  }) //End of then
   .catch(err => {
     res.status(500).json({
       error: err
@@ -24,7 +30,15 @@ router.get('/:landscapeId', (req, res, next) => {
   Landscape.findById(id)
   .exec()
   .then(response => {
-    res.status(200).json({message: "Your requested record has been delivered", record: response})
+    res.status(200).json({
+      message: "Your requested record has been delivered",
+      record: response,
+      request: {
+        message: "Metadata for requesting all routes",
+        type: 'GET',
+        url: "localhost:3000/landscapes"
+      }
+    })
   })
   .catch(err => {
     res.status(500).json(err)
