@@ -71,5 +71,22 @@ router.patch('/:landscapeId', (req, res, next) => {
   })
 })
 
+router.delete('/:landscapeId', (req, res, next) => {
+  const id = req.params.landscapeId;
+  Landscape.remove({_id: id})
+  .exec()
+  .then(response => {
+    res.status(200).json({
+      message: 'Your landscape has been removed from our records',
+      landscape: response
+    })
+  }) //end of then
+  .catch(err => {
+    res.status(500).json({error: err})
+  })
+})
+
+
+
 
 module.exports = router;

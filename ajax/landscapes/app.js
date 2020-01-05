@@ -15,11 +15,33 @@ mongoose.connect(`mongodb+srv://imagineTech:${process.env.PASSWORD}@start-xnmb4.
   useUnifiedTopology: true
 });
 
+// CORS ERROR HANDLING
+app.use('/', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+
+  if(req.method === 'OPTIONS'){
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+    return res.status(200).json({})
+  };
+
+  next();
+});
+
 // ROUTES
 const landscapeRoutes = require('./api/routes/landscapes');
 
 // ROUTES MIDDLEWARE
 app.use('/landscapes', landscapeRoutes);
+
+app.use('/', (req, res, next) => {
+  const error = new Error("Route Not Found");
+  res.status(404).json({
+    error: error.message
+  })
+
+  next();
+});
 
 
 module.exports = app;
