@@ -57,12 +57,7 @@ router.post('/', (req, res, next) => {
 
 router.patch('/:landscapeId', (req, res, next) => {
   const id = req.params.landscapeId;
-
-  const updater = {};
-  for(const update in req.body){
-    updater[update.propName] = update.value
-  }
-  Landscape.update({_id: id}, {$set: updater})
+  Landscape.update({_id: id}, {$set: req.body})
   .exec()
   .then(response => {
     res.status(200).json({
