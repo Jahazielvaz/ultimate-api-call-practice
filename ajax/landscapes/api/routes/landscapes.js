@@ -55,13 +55,41 @@ router.post('/', (req, res, next) => {
 
   landscape.save()
   .then(response => {
+    const requests = {
+      getAllLandscapes: {
+        type: 'GET',
+        url: 'localhost:3000/landscapes',
+      },
+      getASingleLandscape: {
+        type: 'GET',
+        url: 'localhost:3000/landscapes/',
+        info: 'Include a landscape ID at the end of the url'
+      },
+      updateLandscape: {
+        type: 'PATCH',
+        url: 'localhost:3000/landscapes',
+        body: {
+          name: 'STRING',
+          location: 'STRING',
+          description: 'STRING'
+        }
+      },
+      deleteLandscape: {
+        type: 'DELETE',
+        url: 'localhost:3000/landscapes',
+        info: 'Include the landscape ID at the end of the url following a /'
+      }
+    } //End of requests
+
+    // next(requests)
+  })
+  .then((response, requests) => {
     res.status(201).json({
       message: 'Congratulations. Your landscape has beep posted',
-      landscape: response
+      landscape: response,
+      requests: requests
     })
-
-    console.log(req.body)
-  })
+  }) //End of then
   .catch(err => {
     res.status(500).json({error: {
       error: err
