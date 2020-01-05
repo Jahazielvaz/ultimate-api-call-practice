@@ -19,6 +19,18 @@ router.get('/', (req, res, next) => {
   })
 }); //End of get request
 
+router.get('/:landscapeId', (req, res, next) => {
+  const id = req.params.landscapeId
+  Landscape.findById(id)
+  .exec()
+  .then(response => {
+    res.status(200).json({message: "Your requested record has been delivered", record: response})
+  })
+  .catch(err => {
+    res.status(500).json(err)
+  })
+})
+
 router.post('/', (req, res, next) => {
   const landscape = new Landscape({
     _id: mongoose.Types.ObjectId(),
@@ -33,6 +45,8 @@ router.post('/', (req, res, next) => {
       message: 'Congratulations. Your landscape has beep posted',
       landscape: response
     })
+
+    console.log(req.body)
   })
   .catch(err => {
     res.status(500).json({error: {
@@ -42,25 +56,25 @@ router.post('/', (req, res, next) => {
 }); // End of post request
 
 router.patch('/:landscapeId', (req, res, next) => {
-  const id = req.params.landscapeId
-  Landscape.update({_id: id}, {$set: {
-    name: req.body.name,
-    location: req.body.location
-  }})
+  const id = req.params.landscapeId;
+
+  const updater = {};
+  for(const update in req.body){
+    updater[update.propName] = update.value
+  }
+  Landscape.update({_id: id}, {$set: updater})
   .exec()
   .then(response => {
     res.status(200).json({
-      message: 'Congratulations. Your landscape has been successfully updated',
-      update: response
+      name: req.body.name,
+      location: req.body.location,
+      description: req.body.description
     })
   })
   .catch(err => {
-    console.log(err)
-    res.status(500).json({
-      Error: err
-    })
+    res.status(500).json({error: err})
   })
-
 })
+
 
 module.exports = router;
