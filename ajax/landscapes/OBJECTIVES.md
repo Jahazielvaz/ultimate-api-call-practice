@@ -22,3 +22,8 @@
 - 9. Create a countries route handler.
 - 10. Create an association and categorize landscapes by country
 - 11. Validation: prevent users from posting a new country if it's not connected to at least one landscape
+
+## WEAKNESSES TO WORK ON
+- 6. Creating a successful CORS error handling
+- 7. Returning the results with the map feature
+- 3. Creating a successful patch request: I have a hard time understanding the codebase used to return unly the aspects updated by the client, and not the entire object.

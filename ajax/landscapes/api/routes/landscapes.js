@@ -54,7 +54,7 @@ router.post('/', (req, res, next) => {
   }); //End of landscape  object instance
 
   landscape.save()
-  .then(response => {
+  .then(place => {
     const requests = {
       getAllLandscapes: {
         type: 'GET',
@@ -81,19 +81,14 @@ router.post('/', (req, res, next) => {
       }
     } //End of requests
 
-    // next(requests)
-  })
-  .then((response, requests) => {
     res.status(201).json({
-      message: 'Congratulations. Your landscape has beep posted',
-      landscape: response,
+      message: "Your new landscape has been posted to our database",
+      landscape: place,
       requests: requests
     })
-  }) //End of then
+  })
   .catch(err => {
-    res.status(500).json({error: {
-      error: err
-    }})
+    res.status(500).json(err)
   })
 }); // End of post request
 
