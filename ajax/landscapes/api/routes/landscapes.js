@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Landscape = require('../models/landscapeModel');
+const requests = require('./metadata');
 
 router.get('/', (req, res, next) => {
   Landscape.find()
@@ -9,6 +10,7 @@ router.get('/', (req, res, next) => {
   .then(response => {
     res.status(200).json({
       message: 'Here are the requested landscapes',
+      requests,
       list: response.map(result => {
         return {
           landscape: result,
@@ -33,11 +35,7 @@ router.get('/:landscapeId', (req, res, next) => {
     res.status(200).json({
       message: "Your requested record has been delivered",
       record: response,
-      request: {
-        message: "Metadata for requesting all routes",
-        type: 'GET',
-        url: "localhost:3000/landscapes"
-      }
+      requests
     })
   })
   .catch(err => {
@@ -55,36 +53,11 @@ router.post('/', (req, res, next) => {
 
   landscape.save()
   .then(place => {
-    const requests = {
-      getAllLandscapes: {
-        type: 'GET',
-        url: 'localhost:3000/landscapes',
-      },
-      getASingleLandscape: {
-        type: 'GET',
-        url: 'localhost:3000/landscapes/',
-        info: 'Include a landscape ID at the end of the url'
-      },
-      updateLandscape: {
-        type: 'PATCH',
-        url: 'localhost:3000/landscapes',
-        body: {
-          name: 'STRING',
-          location: 'STRING',
-          description: 'STRING'
-        }
-      },
-      deleteLandscape: {
-        type: 'DELETE',
-        url: 'localhost:3000/landscapes',
-        info: 'Include the landscape ID at the end of the url following a /'
-      }
-    } //End of requests
 
     res.status(201).json({
       message: "Your new landscape has been posted to our database",
       landscape: place,
-      requests: requests
+      requests
     })
   })
   .catch(err => {
@@ -100,7 +73,8 @@ router.patch('/:landscapeId', (req, res, next) => {
     res.status(200).json({
       name: req.body.name,
       location: req.body.location,
-      description: req.body.description
+      description: req.body.description,
+      requests
     })
   })
   .catch(err => {
@@ -115,7 +89,8 @@ router.delete('/:landscapeId', (req, res, next) => {
   .then(response => {
     res.status(200).json({
       message: 'Your landscape has been removed from our records',
-      landscape: response
+      landscape: response,
+      requests
     })
   }) //end of then
   .catch(err => {
