@@ -18,6 +18,8 @@
 ### COMPLETED
 
 - 7. Send metadata in your responses with url information, and any useful information for each of the routes
+### COMPLETED
+
 - 8. Using next() method: Create a follow up response to one of the routes, so you can use the next() method appropriately
 - 9. Create a countries route handler.
 - 10. Create an association and categorize landscapes by country
