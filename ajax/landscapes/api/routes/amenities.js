@@ -2,20 +2,23 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Amenity = require('../models/amenitiesModel');
 const router = express.Router();
+const app = express();
 
-router.get('/', (req, res, next) => {
+app.use('/', (req, res, next) => {
   const myResponse = {
     name: 'Jason',
     last: 'Huaman'
   }
 
-  next()
+  // res.status(200).json({message: 'This route works'})
+  // return myResponse;
+  next(myResponse)
 })
-.exec()
-.then(result => {
-  res.status(200).json({
-    myResponse
-  })
+
+router.get('/', (myResponse, req, res, next) => {
+  res.status(200).json({name: myResponse})
 })
+
+
 
 module.exports = router;
