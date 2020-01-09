@@ -23,7 +23,11 @@
 - 8. Using next() method: Create a follow up response to one of the routes, so you can use the next() method appropriately
 *NOTE: I Still don't fully understand how the next method works, and I still can't use it predictably. I need to ask someone to help me in this area*
 - 9. Create a countries route handler.
+### COMPLETED
+
 - 10. Create an association and categorize landscapes by country
+### COMPLETED
+
 - 11. Validation: prevent users from posting a new country if it's not connected to at least one landscape
 
 ## WEAKNESSES TO WORK ON

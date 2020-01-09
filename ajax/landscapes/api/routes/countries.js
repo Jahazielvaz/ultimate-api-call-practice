@@ -4,11 +4,31 @@ const router = express.Router();
 const Country = require('../models/countriesModel');
 
 router.get('/', (req, res, next) => {
-  res.status(200).json({message: 'This route is currenly a test run, and it seems to be working just fine'})
+  Country.find()
+  .exec()
+  .then(response => {
+    res.status(200).json({
+      message: "Here are the countries currently stored in our database",
+      list: {
+        response
+      }
+    })
+  })
+  .catch(err => {
+    res.status(500).json({error: err})
+  })
 })
 
 router.get('/:countryId', (req, res, next) => {
-  res.status(200).json({message: 'This route is also working'})
+  const id = req.params.countryId;
+  Country.findById(id)
+  .exec()
+  .then(response => {
+    res.status(200).json({message: "Here's your requested country", response})
+  })
+  .catch(err => {
+    res.status(500).json({error: err})
+  })
 })
 
 router.post('/', (req, res, next) => {
@@ -29,6 +49,19 @@ router.post('/', (req, res, next) => {
         country: response
       })
     }
+  })
+  .catch(err => {
+    res.status(500).json({error: err})
+  })
+})
+
+// PATCH REQUEST
+router.patch('/:countryId', (req, res, next) => {
+  const id = req.params.countryId;
+  Country.update({_id: id}, {$set: req.body})
+  .exec()
+  .then(response => {
+    res.status(200).json({message: "Country has been updated in our records", response})
   })
   .catch(err => {
     res.status(500).json({error: err})
