@@ -68,4 +68,15 @@ router.patch('/:countryId', (req, res, next) => {
   })
 })
 
+router.delete("/:countryId", (req, res, next) => {
+  const id = req.params.countryId;
+  Country.remove({_id: id})
+  .then(response => {
+    res.status(200).json({
+      message: "Your country has been removed from our records"
+    })
+  })
+  .catch(err => {res.status(500).json({error: err})})
+})
+
 module.exports = router;
