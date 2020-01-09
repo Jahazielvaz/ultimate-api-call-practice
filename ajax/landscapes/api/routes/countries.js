@@ -21,10 +21,14 @@ router.post('/', (req, res, next) => {
 
   country.save()
   .then(response => {
-    res.status(201).json({
-      message: 'Your country has been posted',
-      country: response
-    })
+    if(response.landscape === null){
+      res.status(404).json({error: "You must include a landscape in your request"})
+    } else {
+      res.status(201).json({
+        message: 'Your country has been posted',
+        country: response
+      })
+    }
   })
   .catch(err => {
     res.status(500).json({error: err})
