@@ -31,10 +31,12 @@ app.use('/', (req, res, next) => {
 // ROUTES
 const landscapeRoutes = require('./api/routes/landscapes');
 const amenityRoutes = require('./api/routes/amenities');
+const countryRoutes = require('./api/routes/countries');
 
 // ROUTES MIDDLEWARE
 app.use('/landscapes', landscapeRoutes);
 app.use('/amenities', amenityRoutes);
+app.use('/countries', countryRoutes);
 
 app.use('/', (req, res, next) => {
   const error = new Error("Route Not Found");
