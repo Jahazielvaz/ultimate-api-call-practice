@@ -5,8 +5,17 @@ const Landscape = require('../models/landscapeModel');
 const requests = require('./metadata');
 const multer = require('multer');
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './imageuploads')
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname)
+  }
+})
 
-const upload = multer({dest: 'api/routes/imageuploads/'})
+
+const upload = multer({storage: storage})
 
 router.get('/', (req, res, next) => {
   Landscape.find()
@@ -48,6 +57,7 @@ router.get('/:landscapeId', (req, res, next) => {
 })
 
 router.post('/', upload.single('imageFile'), (req, res, next) => {
+  console.log(req.file)
   const landscape = new Landscape({
     _id: mongoose.Types.ObjectId(),
     name: req.body.name,
