@@ -30,6 +30,8 @@
 
 - 11. Validation: prevent users from posting a new country if it's not connected to at least one landscape
 
+- 12. Create an image upload backend, so the client can store images within the landscape route, so we can have a visual of what the landscape looks like 
+
 ## WEAKNESSES TO WORK ON
 - 6. Creating a successful CORS error handling
 - 7. Returning the results with the map feature
