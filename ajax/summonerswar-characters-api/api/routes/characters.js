@@ -3,14 +3,27 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require("mongoose");
 const Characters = require('../models/charactersModel');
+const multer = require('multer');
+
+
+
+const upload = multer({dest: 'characterUploads/'})
 
 router.get('/', (req, res, next) => {
-  res.status(200).json({
-    message: 'It works'
+  Characters.find()
+  .exec()
+  .then(response => {
+    res.status(200).json({
+      message: "Here's the list of all the characters that currently exist in the database",
+      list: response
+    })
+  })
+  .catch(err => {
+    res.status(500).json({error: err})
   })
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', upload.single('characterImage'), (req, res, next) => {
   const characters = new Characters({
     _id: mongoose.Types.ObjectId(),
     name: req.body.name,
@@ -49,6 +62,16 @@ router.get('/:characterId', (req, res, next) => {
 router.patch('/:characterId', (req, res, next) => {
   const id = req.body.characterId;
   Characters.update({_id: id}, {$set: {name: req.body.name}})
+})
+
+router.delete('/:characterId', (req, res, next) => {
+  Characters.remove({_id: req.params.characterId})
+  .then(response => {
+    res.status(200).json({
+      message: "Your Character is no longer in our records",
+      response: response
+    })
+  })
 })
 
 
