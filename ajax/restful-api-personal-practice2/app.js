@@ -1,20 +1,44 @@
-const express = require('express'),
-app = express();
-const bodyParser = require('body-parser');
+const express = require('express')
+const app = express()
+const morgan = require('morgan')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 
-// App Middleware
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+// APP MIDDLEWARE
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
+app.use(morgan('dev'))
 
-// Routes
-const players = require('./players');
-const playerInfo = require('./playerinfo');
+// DB
+mongoose.connect(`mongodb+srv://imagineTech:${process.env.PASSWORD}@start-xnmb4.mongodb.net/Activities?retryWrites=true&w=majority`, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
 
-// Headers
+// CORS HANDLING
+app.use('/', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorizaton')
 
-// Requests
-app.use('/players', players);
-app.use('/playerinfo', playerInfo);
+  if(req.method === 'OPTIONS'){
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, PUT')
+    return res.status(200).json({})
+  }
+
+  next()
+})
+
+// ROUTE MIDDLEWARE
+const eventRoutes = require('./api/routes/events')
+
+app.use('/events', eventRoutes)
+
+
+
+
+// app.get('/', (req, res, next) => {
+//   res.status(200).json({message: "Welcome! This is an events rest api. It will be focused local events, their name, schedule, and location"})
+// })
 
 
 module.exports = app;
