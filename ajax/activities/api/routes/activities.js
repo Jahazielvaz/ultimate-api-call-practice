@@ -1,10 +1,23 @@
-const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
+const multer = require('multer');
 
-const Activity = require('../models/activitiesModel');
+const Activity = require("../models/activitiesModel");
 
-router.post('/', (req, res, next) => {
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './imageUploads');
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname)
+  }
+});
+
+
+const upload = multer({storage: storage});
+
+router.post('/', upload.single('upload'), (req, res, next) => {
   const activity = new Activity({
     _id: mongoose.Types.ObjectId(),
     name: req.body.name,
@@ -15,15 +28,15 @@ router.post('/', (req, res, next) => {
   activity.save()
   .then(response => {
     res.status(201).json({
-      message: 'Your activity has been posted',
+      message: "Your activity has been posted",
       activity: response
     })
   })
-  .catch(error => {
-    res.status(500).json({error: error})
+  .catch(err => {
+    res.status(500).json({error: err})
   })
-  // End of promise
 
-}); //End of post route
+}) //End of post route
+
 
 module.exports = router;
