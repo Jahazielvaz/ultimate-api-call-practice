@@ -5,10 +5,21 @@ const multer = require('multer');
 
 const Activity = require('../models/activitiesModel');
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './imageUploads')
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname)
+  }
+})
 
-router.post('/', (req, res, next) => {
+const upload = multer({storage: storage});
+
+
+router.post('/', upload.single('upload'), (req, res, next) => {
   const activity = new Activity({
-    _id: mongoose.Types.ObjectId,
+    _id: mongoose.Types.ObjectId(),
     name: req.body.name,
     location: req.body.location
   })
@@ -20,4 +31,9 @@ router.post('/', (req, res, next) => {
       activity: response
     })
   })
+  .catch(err => {
+    res.status(500).json({error: err})
+  })
 })
+
+module.exports = router;
