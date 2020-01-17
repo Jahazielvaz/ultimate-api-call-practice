@@ -13,6 +13,14 @@ NOTE: You shouldn't put commas, or it will only return the last property you put
 
 #### Execution
 - ACTUAL CODE: const upload = multer({dest: 'uploads/'})
+
 - HOW IT WORKS: Once you execute multer, you're ready to go, however, you can also add optional configurations, so in this case, we're adding a destination folder called uploads, which will automatically be created  if it doesn't already exist.
 
 NOTE: Make sure you don't add an absolute path, or it'll try to create the file inside node modules and it'll crash.
+
+- MIDDLEWARE: Multer can behave as middleware, and comes with some built-in properties such as req.file which allows you access to the file.
+  upload.single('productImage'):
+  * In this example. the upload part is your optional custom created variable which contains the multer execution
+  const upload = multer({mySpecifications: "Here I set some configuration"})
+  * The single() method states that you only want it to parse through one file, and therefore the client can't store multiple of these files in the same request.
+  * the 'productImage' is the key name that I'm assigning it so the client can upload their file using that key name

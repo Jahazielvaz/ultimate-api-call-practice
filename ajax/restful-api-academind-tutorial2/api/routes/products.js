@@ -3,7 +3,28 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
 // conf is optional: For example "dest" stands for destination
-const upload = multer({dest: 'uploads/'});
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './uploads/')
+  },
+  filename: (req, file, cb) => {
+    cb(null, new Date().toISOString() + file.originalname)
+  }
+})
+
+// You can create your own custom file filter, like this one here.
+const fileFilter = (req, file, cb) => {
+  //cb null false is how you reject a file
+  cb(null, false);
+
+  //cb null true is how you accept the file
+  cb(null, true);
+};
+
+// The fileSize feature works in bytes. I believe that the first field, is the max width, the second one is the height, and the third one is the total amount of bytes that you're willing to allow from file.
+const upload = multer({storage: storage, limits: {
+  fileSize: 1025 * 1025 * 5
+}});
 
 // DB
 Product = require('../models/product');
