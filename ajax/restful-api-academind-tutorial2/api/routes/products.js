@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
+
 // conf is optional: For example "dest" stands for destination
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -15,23 +16,30 @@ const storage = multer.diskStorage({
 // You can create your own custom file filter, like this one here.
 const fileFilter = (req, file, cb) => {
   //cb null false is how you reject a file
-  cb(null, false);
-
+  // NOTE: If you don't set null on true, it'll return with an error.
+  // If you don't set null with false, it won't return an error, but it won't save the file.
   //cb null true is how you accept the file
-  cb(null, true);
+  if(file.mimetype === 'png' || 'jpeg'){
+    cb(null, true) //This will store the file
+  } else {
+    cb(false);
+  }
 };
 
 // The fileSize feature works in bytes. I believe that the first field, is the max width, the second one is the height, and the third one is the total amount of bytes that you're willing to allow from file.
-const upload = multer({storage: storage, limits: {
-  fileSize: 1025 * 1025 * 5
-}});
+const upload = multer({
+  storage: storage,
+  limits: {fileSize: 1025 * 1025 * 10},
+  fileFilter: fileFilter
+
+});
 
 // DB
 Product = require('../models/product');
 
 router.get('/', (req, res, next) => {
   Product.find()
-  .select('name price _id')
+  .select('name price _id productImage')
   .exec()
   .then((doc) => {
     const response = {
@@ -40,6 +48,7 @@ router.get('/', (req, res, next) => {
         return {
           name: info.name,
           price: info.price,
+          productImage: doc.productImage,
           id: info._id,
           request: {
             type: 'GET',
@@ -68,7 +77,8 @@ router.post('/', upload.single("productImage"), (req, res, next) => {
   const product = new Product({
     _id: mongoose.Types.ObjectId(),
     name: req.body.name,
-    price: req.body.price
+    price: req.body.price,
+    productImage: req.file.path
   })
 
   product.save()
@@ -97,7 +107,7 @@ router.post('/', upload.single("productImage"), (req, res, next) => {
 router.get('/:productId', (req, res, next) => {
   const id = req.params.productId;
   Product.findById(id)
-  .select('name price _id')
+  .select('name price _id productImage')
   .exec()
   .then(doc => {
     console.log('from database', doc)

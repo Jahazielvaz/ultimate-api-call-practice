@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
-
+app.use(express.static('uploads'));
 
 // DB
 const USER_NAME = 'imagineTech';
