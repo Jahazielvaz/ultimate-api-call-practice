@@ -1,23 +1,35 @@
 const express = require('express');
-const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
+const router = express.Router();
 
-const Activity = require("../models/activitiesModel");
+const Activity = require('../models/activitiesModel');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './imageUploads');
+    cb(null, './imageUploads')
   },
+
   filename: (req, file, cb) => {
     cb(null, file.originalname)
   }
-});
+})
 
+const filter = (req, file, cb) => {
+  if(file.mimetype === 'png'){
+    cb(null, true)
+  } else {
+    cb(null, false)
+  }
+}
 
-const upload = multer({storage: storage});
+const uploads = multer({
+  storage: storage,
+  limits: {filesize: 1400 * 1400 * .4},
+  filter: filter
+})
 
-router.post('/', upload.single('upload'), (req, res, next) => {
+router.post('/', uploads.single('fileUpload'), (req, res, next) => {
   const activity = new Activity({
     _id: mongoose.Types.ObjectId(),
     name: req.body.name,
@@ -28,15 +40,15 @@ router.post('/', upload.single('upload'), (req, res, next) => {
   activity.save()
   .then(response => {
     res.status(201).json({
-      message: "Your activity has been posted",
+      message: 'Your activity has been posted to our records',
       activity: response
-    })
+    });
   })
   .catch(err => {
     res.status(500).json({error: err})
   })
 
-}) //End of post route
-
+  console.log(req.file)
+});
 
 module.exports = router;
