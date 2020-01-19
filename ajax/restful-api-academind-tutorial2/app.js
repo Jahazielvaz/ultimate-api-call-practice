@@ -34,10 +34,14 @@ app.use((req, res, next) => {
 // Routes
 const productsRoute = require('./api/routes/products');
 const orderRoutes = require('./api/routes/order');
+const userRoutes = require('./api/routes/user');
 
 // Requests
-app.use('/products', productsRoute)
-app.use('/orders', orderRoutes)
+app.use('/products', productsRoute);
+app.use('/orders', orderRoutes);
+app.use('/users', userRoutes);
+
+
 
 // Error Handling
 app.use((req, res, next) => {
