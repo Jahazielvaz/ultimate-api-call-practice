@@ -3,6 +3,10 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Entry = require('../models/entriesModel');
 const Registration = require('../models/users');
+const multer = require('multer');
+
+
+const upload = multer({dest: 'imageUploads/'})
 
 // Getting all entries that exist
 router.get('/',(req, res, next) => {
@@ -13,7 +17,7 @@ router.get('/',(req, res, next) => {
       data: result,
       request: {
         message: 'How to post an entry',
-        url: 'localhost:3000/entries',
+        url: 'localhost:4000/entries',
         body: {
           userId: 'Number',
           entry: 'String',
@@ -51,14 +55,14 @@ router.get('/:userId', (req, res, next) => {
 // router.get()
 
 // Posting a new entry
-router.post('/', (req, res, next) => {
+router.post('/', upload.single('imageUpload'), (req, res, next) => {
   Registration.findById(req.body.user)
   .exec()
   .then((result) => {
     const entries = new Entry({
       _id: mongoose.Types.ObjectId(),
       user: req.body.userId,
-      entry: req.body.monkeys,
+      entry: req.body.entry,
       date: req.body.date
     })
 

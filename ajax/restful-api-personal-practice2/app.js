@@ -3,6 +3,7 @@ const app = express()
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const multer = require('multer')
 
 // APP MIDDLEWARE
 app.use(bodyParser.urlencoded({extended: false}))
@@ -36,9 +37,15 @@ app.use('/events', eventRoutes)
 
 
 
-// app.get('/', (req, res, next) => {
-//   res.status(200).json({message: "Welcome! This is an events rest api. It will be focused local events, their name, schedule, and location"})
-// })
+app.get('/*', (req, res, next) => {
+  res.status(200).json({message: "WRONG"})
+
+  next()
+})
+
+app.get('/', (req, res, next) => {
+  res.status(200).json({message: "It works"})
+})
 
 
-module.exports = app;
+module.exports = app

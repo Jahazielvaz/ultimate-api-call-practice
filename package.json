@@ -4,25 +4,27 @@
   "description": "",
   "main": "./ajax/app.js",
   "scripts": {
-    "start": "nodemon ajax4App.js",
+    "start": "nodemon ajax4App.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Jahazielvaz/ultimate-api-call-practice.git"
   },
-  "author": "",
+  "author": "ImagineTech",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Jahazielvaz/ultimate-api-call-practice/issues"
   },
   "homepage": "https://github.com/Jahazielvaz/ultimate-api-call-practice#readme",
   "dependencies": {
+    "bcrypt": "^3.0.7",
     "body-parser": "^1.19.0",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
     "mongodb": "^3.3.3",
     "mongoose": "^5.7.7",
     "morgan": "^1.9.1",
+    "multer": "^1.4.2",
     "request": "^2.88.0"
   }
 }

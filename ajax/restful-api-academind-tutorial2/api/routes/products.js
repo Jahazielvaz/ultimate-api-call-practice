@@ -88,7 +88,8 @@ router.post('/', upload.single("productImage"), (req, res, next) => {
       createdProduct: {
         _id: result._id,
         name: result.name,
-        price: result.price
+        price: result.price,
+        productImage: result.productImage
       },
       requestData: {
         type: 'GET',
@@ -162,6 +163,17 @@ router.delete('/:productId', (req, res, next) => {
     })
   })
 });
+
+router.delete('/', (req, res, next) => {
+  Product.find()
+  .remove()
+  .then(response => {
+    res.status(200).json({message: 'All content has been removed from our records'})
+  })
+  .catch(err => {
+    res.status(500).json({error: err})
+  })
+})
 
 
 
