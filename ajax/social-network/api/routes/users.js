@@ -1,21 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-
-const User = require('../models/usersModel');
-const error = require('./error');
 const bcrypt = require('bcrypt');
 
-router.post('/', (req, res, next) => {
+const User = require("../models/usersModel");
+const error = require('./error');
+
+router.post('/register', (req, res, next) => {
   User.find({username: req.body.username})
   .exec()
-  .then(user => {
-    if(user.length >= 1){
-      res.status(500).json({message: 'Username exists in our records'})
+  .then(result => {
+    if(result.length >= 1){
+      return res.status(422).json({message: 'User already exists'});
     } else {
-      bcrypt.hash(req.body.password, 10, (err, hash) => {
-        if(err){
-          return res.status(500).json({error: err})
+      bcrypt.hash(req.body.password, 10, (error, hash) => {
+        if(error){
+          return res.status(500).json(error)
         } else {
           const user = new User({
             _id: mongoose.Types.ObjectId(),
@@ -24,18 +24,18 @@ router.post('/', (req, res, next) => {
           });
 
           user.save()
-          .then(result => {
+          .then(user => {
             res.status(201).json({
-              message: 'Your username and password have been created',
-              user: result
+              message: 'Your username already exists',
+              user: user
             })
           })
-          .catch(error)
-        }
-      })
+        } //end of inner else statement
+      }) //End of bcrypt hash
     }
   })
-  .catch(error);
-});
+  .catch(error)
+})
+
 
 module.exports = router;
