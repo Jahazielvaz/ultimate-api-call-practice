@@ -2,9 +2,52 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const User = require("../models/usersModel");
-const error = require('./error');
+
+router.get('/', (req, res, next) => {
+  User.find()
+  .exec()
+  .then(result => {
+    res.status(200).json({
+      message: 'Here\'s the full list of users in our database',
+      list: result
+    });
+  })
+  .catch(error => {
+    res.status(500).json({ error: error })
+  })
+
+})//End of get route
+
+router.post('/signin', (req, res, next) => {
+  User.find({username: req.body.username})
+  .exec()
+  .then(user => {
+    if(user.length < 1){
+        return res.status(401).json({
+            message: 'Auth Failed'
+      });
+    }
+
+    bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+      if(err){
+          return res.status(401).json({message: 'Auth Failed'})
+      }
+
+      if(result){
+        return res.status(200).json({message: 'Auth Successful'})
+      }
+
+    }) //End of bcrypt compare
+
+
+  }) //End of then block
+  .catch(error => {
+    res.status(500).json({error: error})
+  })
+})
 
 router.post('/register', (req, res, next) => {
   User.find({username: req.body.username})
@@ -34,7 +77,9 @@ router.post('/register', (req, res, next) => {
       }) //End of bcrypt hash
     }
   })
-  .catch(error)
+  .catch(error => {
+    res.status(500).json({error: error})
+  })
 })
 
 
