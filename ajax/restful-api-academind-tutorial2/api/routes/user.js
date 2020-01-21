@@ -2,12 +2,25 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const err = require('./err');
 
 
 const User = require('../models/userModel');
 
+router.get('/', (req, res, next) => {
+  User.find()
+  .exec()
+  .then(result => {
+    res.status(200).json({
+      message: "User's List",
+      list: result
+    })
+  })
+  .catch(err)
+});
+
 router.post('/signup', (req, res, next) => {
-  User.find({username: req.body.username})
+  User.find({email: req.body.email})
   .exec()
   .then(user => {
     if(user.length >= 1){
@@ -23,7 +36,7 @@ router.post('/signup', (req, res, next) => {
         } else {
           const user = new User({
             _id: new mongoose.Types.ObjectId(),
-            username: req.body.username,
+            email: req.body.email,
             password: hash
           });
 
