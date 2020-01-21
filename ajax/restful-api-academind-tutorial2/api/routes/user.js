@@ -19,6 +19,31 @@ router.get('/', (req, res, next) => {
   .catch(err)
 });
 
+router.post('/login', (req, res, next) => {
+  User.find({email: req.body.email})
+  .exec()
+  .then(user => {
+    if(user.length < 1){
+      return res.status(401).json({message: 'Auth Failed'})
+    }
+
+    bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+      if(err){
+        return res.status(401).json({response: 'Auth Failed'})
+      }
+
+      if(result){
+        return res.status(200).json({
+          response: 'Auth Successful!'
+        })
+      }
+      res.status(401).json({response: 'Auth Failed'})
+
+    });
+  })
+  .catch(err)
+});
+
 router.post('/signup', (req, res, next) => {
   User.find({email: req.body.email})
   .exec()
