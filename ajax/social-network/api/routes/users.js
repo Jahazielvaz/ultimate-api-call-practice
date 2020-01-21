@@ -1,34 +1,32 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
 const User = require('../models/usersModel');
 const error = require('./error');
+const bcrypt = require('bcrypt');
 
-router.post('/signup', (req, res, next) => {
+router.post('/', (req, res, next) => {
   User.find({username: req.body.username})
   .exec()
   .then(user => {
     if(user.length >= 1){
-      res.status(422).json({
-        message: "Username already exists"
-      })
+      res.status(500).json({message: 'Username exists in our records'})
     } else {
       bcrypt.hash(req.body.password, 10, (err, hash) => {
         if(err){
-          res.status(500).json(error)
+          return res.status(500).json({error: err})
         } else {
           const user = new User({
             _id: mongoose.Types.ObjectId(),
             username: req.body.username,
             password: hash
-          })
+          });
 
           user.save()
           .then(result => {
             res.status(201).json({
-              message: 'Your user id has been successfully stored in our records',
+              message: 'Your username and password have been created',
               user: result
             })
           })
@@ -36,13 +34,8 @@ router.post('/signup', (req, res, next) => {
         }
       })
     }
-  })//End of then
-
-  .catch(error)
+  })
+  .catch(error);
 });
-
-
-
-
 
 module.exports = router;

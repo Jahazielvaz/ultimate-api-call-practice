@@ -44,6 +44,23 @@ router.post('/signup', (req, res, next) => {
     } //end of main else block
   })
 
+}) //End of post routes
+
+router.delete('/:userId', (req, res, next) => {
+  User.remove({_id: req.params.userId})
+  .exec()
+  .then(result => {
+    res.status(200).json({
+      message: 'Your user information has been removed from our records'
+    })
+  })
+  .catch(err => {
+    res.status(500).json({
+      error: err
+    })
+  })
+  //end of promise
+
 })
 
 
