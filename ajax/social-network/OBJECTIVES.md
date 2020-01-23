@@ -6,6 +6,7 @@
 ## ALL ABOVE TASKS COMPLETED
 
 #OBJECTIVES 2
+- Do some kind of email validation. Go through the steps inside the academind model, and break down each step and follow it over and over, until you get it.
 - Create a post route for login.
 - Verify that the email address exists
 - Verify that the unencrypted password, matches the encrypted password

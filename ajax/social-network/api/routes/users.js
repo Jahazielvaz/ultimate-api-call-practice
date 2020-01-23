@@ -1,47 +1,50 @@
+// DEPENDENCIES
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const USER = require('../models/usersModel');
 
-const User = require('../models/usersModel');
-
-router.post('/register', (req, res, next) => {
-  User.find({username: req.body.username})
+// ROUTES
+router.post('/signup', (req, res, next) => {
+  USER.find({email: req.body.email})
   .exec()
   .then(user => {
     if(user.length >= 1){
-      return res.status(422).json({message: 'Username Exists'})
+      return res.status(422).json({message: 'User exists'})
     } else {
       bcrypt.hash(req.body.password, 10, (err, hash) => {
         if(err){
-          res.status(422).json({
-            message: err
-          })
+          res.status(500).json({error: err})
         }
-        const user = new User({
+
+        const user = new USER({
           _id: mongoose.Types.ObjectId(),
-          username: req.body.username,
+          email: req.body.email,
           password: hash
-        })
+        });
 
         user.save()
-        .then(userData => {
+        .then(result => {
           res.status(201).json({
-            message: 'Username and password have been stored in our database',
-            user: userData
-          })
+            message: 'New user has been posted',
+            user: result
+          });
         })
-      })
-    }
-  })
-  .catch(err => {
-    res.status(500).json({
-      error: err
-    })
-  })
-})
+        .catch(err => {
+          res.status(500).json({error: err})
+        });
 
+      }) //End of bcrypt method
+    }
+
+
+  }) //End of then statement
+  .catch(err => {
+    res.status(500).json({error: err})
+  })
+}); //End of post route
 
 
 
