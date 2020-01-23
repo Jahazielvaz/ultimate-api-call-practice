@@ -1,52 +1,48 @@
-// DEPENDENCIES
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-const USER = require('../models/usersModel');
+const User = require('../models/usersModel');
 
-// ROUTES
-router.post('/signup', (req, res, next) => {
-  USER.find({email: req.body.email})
+router.post('/register', (req, res, next) => {
+  User.find({email: req.body.email})
   .exec()
-  .then(user => {
-    if(user.length >= 1){
-      return res.status(422).json({message: 'User exists'})
-    } else {
-      bcrypt.hash(req.body.password, 10, (err, hash) => {
-        if(err){
-          res.status(500).json({error: err})
-        }
-
-        const user = new USER({
-          _id: mongoose.Types.ObjectId(),
-          email: req.body.email,
-          password: hash
-        });
-
-        user.save()
-        .then(result => {
-          res.status(201).json({
-            message: 'New user has been posted',
-            user: result
-          });
-        })
-        .catch(err => {
-          res.status(500).json({error: err})
-        });
-
-      }) //End of bcrypt method
+  .then(result => {
+    if(result.length >= 1){
+      return res.status(401).json({
+        message: 'User exists!'
+      });
     }
 
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+      if(err){
+        return res.status(500).json({error: err});
+      }
 
-  }) //End of then statement
+      const user = new User({
+        _id: mongoose.Types.ObjectId(),
+        email: req.body.email,
+        password: hash
+      });
+
+      user.save()
+      .then(user => {
+        res.status(201).json({
+          message: 'New user has been registered',
+          user: user
+        })
+      })
+      .catch(err => {
+        res.status(500).json({error: err})
+      });
+    })
+  })
   .catch(err => {
     res.status(500).json({error: err})
-  })
-}); //End of post route
-
-
+  }); //end of promise
+}); //end of post request
 
 
 module.exports = router;
