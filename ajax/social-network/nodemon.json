@@ -1,6 +1,6 @@
 {
   "env": {
     "PASSWORD": "Chato225%24%23%40",
-    "JWT_TOKEN": "Mysupersecrettoken"
+    "JWT_KEY": "Mysupersecrettoken"
   }
 }
