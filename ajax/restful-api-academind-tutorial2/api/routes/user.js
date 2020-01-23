@@ -30,7 +30,7 @@ router.post('/login', (req, res, next) => {
 
     bcrypt.compare(req.body.password, user[0].password, (err, result) => {
       if(err){
-        return res.status(401).json({response: 'Auth Failed'})
+        return res.status(401).json({response: 'Auth Failed'});
       }
 
       if(result){
@@ -42,7 +42,7 @@ router.post('/login', (req, res, next) => {
         {
           expiresIn: "1h"
         }
-      )
+      ); //End of token 
         return res.status(200).json({
           response: 'Auth Successful!',
           token: token
