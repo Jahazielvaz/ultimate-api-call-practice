@@ -42,7 +42,7 @@ router.post('/login', (req, res, next) => {
         {
           expiresIn: "1h"
         }
-      ); //End of token 
+      ); //End of token
         return res.status(200).json({
           response: 'Auth Successful!',
           token: token
@@ -60,16 +60,17 @@ router.post('/signup', (req, res, next) => {
   .exec()
   .then(user => {
     if(user.length >= 1){
-      res.status(422).json({
+      return res.status(422).json({
         message: 'user name exists in our records'
       })
-    } else {
+    }
+
       bcrypt.hash(req.body.password, 10, (err, hash) => {
         if(err){
           return res.status(500).json({
             error: err
           });
-        } else {
+        }
           const user = new User({
             _id: new mongoose.Types.ObjectId(),
             email: req.body.email,
@@ -88,9 +89,8 @@ router.post('/signup', (req, res, next) => {
           .catch(err => {
             res.status(500).json({error: err})
           })
-        }
+
       }); //end of bcrypt section
-    } //end of main else block
   })
 
 }) //End of post routes

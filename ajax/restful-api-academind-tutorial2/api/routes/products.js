@@ -3,6 +3,12 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
 
+// DB
+Product = require('../models/product');
+
+// Auth
+const checkAuth = require('../auth/check_auth');
+
 // conf is optional: For example "dest" stands for destination
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -19,11 +25,12 @@ const fileFilter = (req, file, cb) => {
   // NOTE: If you don't set null on true, it'll return with an error.
   // If you don't set null with false, it won't return an error, but it won't save the file.
   //cb null true is how you accept the file
-  if(file.mimetype === 'png' || 'jpeg'){
-    cb(null, true) //This will store the file
-  } else {
-    cb(false);
-  }
+  // if(file.mimetype === '*'){
+  //   cb(null, true) //This will store the file
+  // } else {
+  //   cb(false);
+  // }
+  cb(null, true)
 };
 
 // The fileSize feature works in bytes. I believe that the first field, is the max width, the second one is the height, and the third one is the total amount of bytes that you're willing to allow from file.
@@ -33,9 +40,6 @@ const upload = multer({
   fileFilter: fileFilter
 
 });
-
-// DB
-Product = require('../models/product');
 
 router.get('/', (req, res, next) => {
   Product.find()
@@ -72,8 +76,7 @@ router.get('/', (req, res, next) => {
 
 });
 
-router.post('/', upload.single("productImage"), (req, res, next) => {
-  console.log(req.file)
+router.post('/', upload.single("productImage"), checkAuth, (req, res, next) => {
   const product = new Product({
     _id: mongoose.Types.ObjectId(),
     name: req.body.name,
