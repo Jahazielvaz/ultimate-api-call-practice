@@ -21,16 +21,15 @@ const storage = multer.diskStorage({
 
 // You can create your own custom file filter, like this one here.
 const fileFilter = (req, file, cb) => {
-  //cb null false is how you reject a file
+  // cb null false is how you reject a file
   // NOTE: If you don't set null on true, it'll return with an error.
   // If you don't set null with false, it won't return an error, but it won't save the file.
-  //cb null true is how you accept the file
-  // if(file.mimetype === '*'){
-  //   cb(null, true) //This will store the file
-  // } else {
-  //   cb(false);
-  // }
-  cb(null, true)
+  // cb null true is how you accept the file
+  if(file.mimetype === 'jpeg' || 'png'){
+    cb(null, true) //This will store the file
+  } else {
+    cb(false);
+  }
 };
 
 // The fileSize feature works in bytes. I believe that the first field, is the max width, the second one is the height, and the third one is the total amount of bytes that you're willing to allow from file.
@@ -76,7 +75,7 @@ router.get('/', (req, res, next) => {
 
 });
 
-router.post('/', upload.single("productImage"), checkAuth, (req, res, next) => {
+router.post('/', upload.single("productImage"), (req, res, next) => {
   const product = new Product({
     _id: mongoose.Types.ObjectId(),
     name: req.body.name,
@@ -88,18 +87,21 @@ router.post('/', upload.single("productImage"), checkAuth, (req, res, next) => {
   .then((result) => {
     res.status(201).json({
       message: 'Product has been posted',
-      createdProduct: {
-        _id: result._id,
-        name: result.name,
-        price: result.price,
-        productImage: result.productImage
-      },
+      // createdProduct: {
+      //   _id: result._id,
+      //   name: result.name,
+      //   price: result.price,
+      //   productImage: result.path
+      // },
+      product: result,
       requestData: {
         type: 'GET',
         url: `http://localhost:3000/products/${result._id}`,
         fetchAllData: 'http://localhost:3000/products'
       }
     });
+
+    console.log(req.file.path)
   })
   .catch((error) => {
     console.log(error)
