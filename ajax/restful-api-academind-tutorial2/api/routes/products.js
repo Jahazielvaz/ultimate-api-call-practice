@@ -39,42 +39,42 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
-// router.get('/', (req, res, next) => {
-//   Product.find()
-//   .select('name price _id productImage')
-//   .exec()
-//   .then((doc) => {
-//     const response = {
-//       count: doc.length,
-//       products: doc.map(info => {
-//         return {
-//           name: info.name,
-//           price: info.price,
-//           productImage: doc.productImage,
-//           id: info._id,
-//           request: {
-//             type: 'GET',
-//             url: `http://localhost:3000/products/${info._id}`
-//           },
-//           postRequest: {
-//             url: 'http://localhost:3000/products',
-//             requiredProperties: 'name, price'
-//           }
-//         }
-//       })
-//     }
-//     res.status(200).json(response)
-//   })
-//   .catch((err) => {
-//     console.log(err)
-//     res.status(500).json({
-//       error: err
-//     })
-//   });
-//
-// });
+router.get('/', (req, res, next) => {
+  Product.find()
+  .select('name price _id productImage')
+  .exec()
+  .then((doc) => {
+    const response = {
+      count: doc.length,
+      products: doc.map(info => {
+        return {
+          name: info.name,
+          price: info.price,
+          productImage: doc.productImage,
+          id: info._id,
+          request: {
+            type: 'GET',
+            url: `http://localhost:3000/products/${info._id}`
+          },
+          postRequest: {
+            url: 'http://localhost:3000/products',
+            requiredProperties: 'name, price'
+          }
+        }
+      })
+    }
+    res.status(200).json(response)
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).json({
+      error: err
+    })
+  });
 
-router.post('/', upload.single('imageUpload'), (req, res, next) => {
+});
+
+router.post('/', upload.single('imageUpload'), checkAuth, (req, res, next) => {
   const product = new Product({
     _id: mongoose.Types.ObjectId(),
     name: req.body.name,
@@ -96,75 +96,75 @@ router.post('/', upload.single('imageUpload'), (req, res, next) => {
 
 })
 
-// router.get('/:productId', (req, res, next) => {
-//   const id = req.params.productId;
-//   Product.findById(id)
-//   .select('name price _id productImage')
-//   .exec()
-//   .then(doc => {
-//     console.log('from database', doc)
-//     if(doc){
-//       res.status(200).json({
-//         message: 'Product Request',
-//         doc,
-//         postRequest: {
-//           url: 'http://localhost:3000/products',
-//           requiredFields: 'name, price'
-//         }
-//       })
-//     } else {
-//       res.status(404).json({message: "Such ID does not exist in our records"})
-//     }
-//   })
-//   .catch(error => {
-//     console.log(error)
-//     res.status(500).json({error: error})
-//   })
-// });
-//
-// router.patch('/:productId', (req, res, next) => {
-//   const id = req.params.productId;
-//   const updateOps = {};
-//   for(const ops of req.body){
-//     updateOps[ops.propName] = ops.value;
-//   }
-//   Product.update({_id: id}, {$set: updateOps})
-//   .exec()
-//   .then(result => {
-//     console.log(result);
-//     res.status(200).json(result)
-//   })
-//   .catch(err => {
-//     console.log(err);
-//     res.status(500).json({error: err})
-//   });
-// });
-//
-// router.delete('/:productId', (req, res, next) => {
-//   const id = req.params.productId;
-//   Product.remove({_id: id})
-//   .exec()
-//   .then((result) => {
-//     res.status(200).json(result)
-//   })
-//   .catch(err => {
-//     console.log(err)
-//     res.status(500).json({
-//       error: err
-//     })
-//   })
-// });
-//
-// router.delete('/', (req, res, next) => {
-//   Product.find()
-//   .remove()
-//   .then(response => {
-//     res.status(200).json({message: 'All content has been removed from our records'})
-//   })
-//   .catch(err => {
-//     res.status(500).json({error: err})
-//   })
-// })
+router.get('/:productId', (req, res, next) => {
+  const id = req.params.productId;
+  Product.findById(id)
+  .select('name price _id productImage')
+  .exec()
+  .then(doc => {
+    console.log('from database', doc)
+    if(doc){
+      res.status(200).json({
+        message: 'Product Request',
+        doc,
+        postRequest: {
+          url: 'http://localhost:3000/products',
+          requiredFields: 'name, price'
+        }
+      })
+    } else {
+      res.status(404).json({message: "Such ID does not exist in our records"})
+    }
+  })
+  .catch(error => {
+    console.log(error)
+    res.status(500).json({error: error})
+  })
+});
+
+router.patch('/:productId', (req, res, next) => {
+  const id = req.params.productId;
+  const updateOps = {};
+  for(const ops of req.body){
+    updateOps[ops.propName] = ops.value;
+  }
+  Product.update({_id: id}, {$set: updateOps})
+  .exec()
+  .then(result => {
+    console.log(result);
+    res.status(200).json(result)
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({error: err})
+  });
+});
+
+router.delete('/:productId', (req, res, next) => {
+  const id = req.params.productId;
+  Product.remove({_id: id})
+  .exec()
+  .then((result) => {
+    res.status(200).json(result)
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json({
+      error: err
+    })
+  })
+});
+
+router.delete('/', (req, res, next) => {
+  Product.find()
+  .remove()
+  .then(response => {
+    res.status(200).json({message: 'All content has been removed from our records'})
+  })
+  .catch(err => {
+    res.status(500).json({error: err})
+  })
+})
 
 
 

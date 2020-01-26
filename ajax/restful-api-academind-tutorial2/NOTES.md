@@ -24,3 +24,7 @@ NOTE: Make sure you don't add an absolute path, or it'll try to create the file 
   const upload = multer({mySpecifications: "Here I set some configuration"})
   * The single() method states that you only want it to parse through one file, and therefore the client can't store multiple of these files in the same request.
   * the 'productImage' is the key name that I'm assigning it so the client can upload their file using that key name
+
+
+
+  
