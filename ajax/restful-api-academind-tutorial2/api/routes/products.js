@@ -75,40 +75,27 @@ router.get('/', (req, res, next) => {
 
 });
 
-router.post('/', upload.single("productImage"), (req, res, next) => {
+router.post('/', (req, res, next) => {
   const product = new Product({
-    _id: mongoose.Types.ObjectId(),
+    _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
-    price: req.body.price,
-    productImage: req.file.path
+    price: req.body.price
+    // productImage: req.file.path
   })
 
   product.save()
-  .then((result) => {
+  .then(product => {
     res.status(201).json({
-      message: 'Product has been posted',
-      // createdProduct: {
-      //   _id: result._id,
-      //   name: result.name,
-      //   price: result.price,
-      //   productImage: result.path
-      // },
-      product: result,
-      requestData: {
-        type: 'GET',
-        url: `http://localhost:3000/products/${result._id}`,
-        fetchAllData: 'http://localhost:3000/products'
-      }
-    });
-
-    console.log(req.file.path)
+      message: 'Product posted successfully',
+      product: product
+    }); //End of status
   })
-  .catch((error) => {
-    console.log(error)
-    res.status(500).json(error)
+  .catch(err => {
+    res.status(500).json({error: err})
   })
 
-});
+
+})
 
 router.get('/:productId', (req, res, next) => {
   const id = req.params.productId;
