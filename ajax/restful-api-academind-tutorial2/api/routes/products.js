@@ -142,20 +142,25 @@ router.patch('/:productId', checkAuth, (req, res, next) => {
 
 router.delete('/:productId', checkAuth, (req, res, next) => {
   const id = req.params.productId;
-  Product.remove({_id: id})
+  Product.remove({_id: req.params.productId})
   .exec()
-  .then((result) => {
-    res.status(200).json(result)
-  })
-  .catch(err => {
-    console.log(err)
-    res.status(500).json({
-      error: err
-    })
-  })
-});
+  .then(product => {
+    if(!product){
+      return res.status(404).json({message: 'Product Not Found'});
+    }
 
-router.delete('/', (req, res, next) => {
+    res.status(200).json({
+      message: 'Product has been removed from our records',
+      data: product
+    })
+  }) //End of then promise
+  .catch(err => {
+    res.status(500).json({error: err});
+  }); //End of catch
+
+}); //End of delete route
+
+router.delete('/', checkAuth, (req, res, next) => {
   Product.find()
   .remove()
   .then(response => {
