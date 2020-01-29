@@ -4,6 +4,20 @@ const mongoose = require('mongoose');
 
 const Artist = require('../models/artistModel');
 
+router.get('/', (req, res, next) => {
+  Artist.find()
+  .exec()
+  .then(artists => {
+    res.status(200).json({
+      message: 'Here\'s the list of artists in our database',
+      artists: artists
+    });
+  })
+  .catch(err => {
+    res.status(500).json({error: err})
+  });
+}); //End of get route
+
 router.post('/', (req, res, next) => {
   const name = req.body.name;
   Artist.find({name: name})
@@ -34,6 +48,10 @@ router.post('/', (req, res, next) => {
     res.status(500).json({error: err})
   });
 }); //End of post route
+
+router.patch('/', (req, res, next) => {
+
+})
 
 
 module.exports = router;
