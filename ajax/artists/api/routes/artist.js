@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const Artist = require('../models/artistModel');
 
@@ -31,6 +32,26 @@ router.get('/', (req, res, next) => {
     res.status(500).json({error: err})
   });
 }); //End of get route
+
+router.post('/user', (req, res, next) => {
+  const name = req.body.name;
+  Artist.find({name: name})
+  .exec()
+  .then(result => {
+    if(result.length < 1){
+      return res.status(401).json({message: 'Unauthorized'});
+    }
+
+    bcrypt.compare(req.body.password, result[0].password, (err, artist) => {
+      if(err){
+        return res.status(401).json({message: 'Unathorized'});
+      }
+      if(result){
+        res.status(200).json({message: "Welcome User", result: artist});
+      }
+    })
+  })
+}); //End of post route
 
 router.post('/', (req, res, next) => {
   const name = req.body.name;
