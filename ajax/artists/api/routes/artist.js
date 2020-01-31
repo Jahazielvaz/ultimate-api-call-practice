@@ -33,6 +33,40 @@ router.get('/', (req, res, next) => {
   });
 }); //End of get route
 
+router.post('/register', (req, res, next) => {
+  Artist.find({name: req.body.name})
+  .exec()
+  .then(user => {
+    if(user.length >= 1){
+      return res.status(401).json({message: 'Artist Exists'});
+    }
+
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+      const artist = new Artist({
+        _id: mongoose.Types.ObjectId(),
+        name: req.body.name,
+        field: req.body.field,
+        networth: req.body.networth,
+        password: hash
+      });
+
+      artist.save()
+      .then(result => {
+        console.log(result.password);
+        res.status(201).json({
+          message: 'New artist has been posted',
+          artist: result
+        });
+      })
+      .catch(err => {
+        res.status(500).json({error: err});
+      });
+    }); //End of bcrypt hash
+  })
+  .catch(err => {
+    res.status(500).json({error: err});
+  }); //End of promise block
+}); //end of post route
 
 
 router.patch('/:artistId', (req, res, next) => {
