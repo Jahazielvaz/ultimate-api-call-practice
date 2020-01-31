@@ -1,0 +1,1 @@
+# INTRO: This file should give you a guide, for you to know how many steps there are in the handshake process for creating the jwt part. That way you'll be able to know which areas you're missing, and which areas you're still weak in. The ultimate purpose is for us to be able to internalize this section. 

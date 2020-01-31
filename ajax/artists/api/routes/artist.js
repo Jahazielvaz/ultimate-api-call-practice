@@ -83,10 +83,19 @@ router.post('/login', (req, res, next) => {
       }
 
       if(result){
+        const token = jwt.sign({
+          name: user[0].name,
+          field: user[0].field,
+          networth: user[0].networth
+        },
+          process.env.TOKEN_KEY,
+        { expiresIn: '1h'}
+      ); //End of token
+
         return res.status(200).json({
           message: 'Welcome User',
-          artist: result
-        });
+          artist: token
+        })
       }
 
       res.status(401).json({message: 'You Suck'})

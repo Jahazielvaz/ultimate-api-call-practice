@@ -1,5 +1,6 @@
 {
   "env": {
-    "PASSWORD": "Chato225%24%23%40"
+    "PASSWORD": "Chato225%24%23%40",
+    "TOKEN_KEY": "SuperSecretKey"
   }
 }
