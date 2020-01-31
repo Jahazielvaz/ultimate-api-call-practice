@@ -68,6 +68,35 @@ router.post('/register', (req, res, next) => {
   }); //End of promise block
 }); //end of post route
 
+// LOGIN ROUTE
+router.post('/login', (req, res, next) => {
+  Artist.find({name: req.body.name})
+  .exec()
+  .then(user => {
+    if(user.length < 1){
+      return res.status(401).json({message: 'Calling the cops on your ass'});
+    }
+
+    bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+      if(err){
+        return res.status(401).json({message: 'Not Authorized'});
+      }
+
+      if(result){
+        return res.status(200).json({
+          message: 'Welcome User',
+          artist: result
+        });
+      }
+
+      res.status(401).json({message: 'You Suck'})
+    }); //End of bcrypt compare
+  })
+  .catch(err => {
+    res.status(401).json({message: 'Unauthorized! Calling the cops on your ass!'})
+  })
+})
+
 
 router.patch('/:artistId', (req, res, next) => {
   const id = req.params.artistId;
