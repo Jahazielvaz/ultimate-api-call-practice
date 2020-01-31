@@ -46,10 +46,14 @@ router.post('/user', (req, res, next) => {
       if(err){
         return res.status(401).json({message: 'Unathorized'});
       }
-      if(result){
-        res.status(200).json({message: "Welcome User", result: artist});
+
+      if(artist){
+        return res.status(200).json({message: "Welcome User", result: artist});
       }
     })
+  })
+  .catch(err => {
+    res.status(500).json({error: err})
   })
 }); //End of post route
 
