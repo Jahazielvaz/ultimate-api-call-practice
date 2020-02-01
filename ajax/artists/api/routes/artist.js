@@ -72,41 +72,40 @@ router.post('/register', (req, res, next) => {
 router.post('/login', (req, res, next) => {
   Artist.find({name: req.body.name})
   .exec()
-  .then(artist => {
-    if(artist.length < 1){
+  .then(user => {
+    if(user.length < 1){
+      return res.status(401).json({message: 'Unathorized'});
+    };
+
+    bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+      if(err){
         return res.status(401).json({message: 'Calling the cops on your ass'});
-    }
+      }
 
-
-      bcrypt.compare(req.body.password, artist[0].password, (err, result) => {
-        if(err){
-          return res.status(401).json({message: 'Password Failed'});
-        }
-
-        const token = jwt.sign({
-          name: artist[0].name,
-          field: artist[0].field,
-          networth: artist[0].networth
+      const token = jwt.sign(
+        {
+          name: user[0].name,
+          field: user[0].field,
+          networth: user[0].networth
         },
         process.env.TOKEN_KEY,
-        {
-          expiresIn: '1h'
-        }
-      );//End of token
+        { expiresIn: '1h' }
 
-      return res.status(200).json({
+      ); //End of token
+
+
+      res.status(200).json({
         message: 'Welcome User',
-        artist: token
+        user: token 
       })
-    }); //End of bcrypt compare
 
 
-    // res.status(401).json({message: 'Not Authorized'});
+    }); //End of bcrypt
   })
   .catch(err => {
-    res.status(401).json({error: err})
-  })
-}); //End of signin post route
+    res.status(500).json({error: err});
+  });
+}); //end of login user post route
 
 
 router.patch('/:artistId', (req, res, next) => {
