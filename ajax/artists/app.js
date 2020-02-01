@@ -4,8 +4,6 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const Artist = require('./api/models/artistModel');
-
 // APP Middleware
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
