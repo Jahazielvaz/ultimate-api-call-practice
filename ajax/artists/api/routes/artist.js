@@ -69,43 +69,17 @@ router.post('/register', (req, res, next) => {
 }); //end of post route
 
 // LOGIN ROUTE
-router.post('/login', (req, res, next) => {
+router.post('/sigin', (req, res, next) => {
   Artist.find({name: req.body.name})
   .exec()
-  .then(user => {
-    if(user.length < 1){
-      return res.status(401).json({message: 'Unathorized'});
-    };
-
-    bcrypt.compare(req.body.password, user[0].password, (err, result) => {
-      if(err){
-        return res.status(401).json({message: 'Calling the cops on your ass'});
-      }
-
-      const token = jwt.sign(
-        {
-          name: user[0].name,
-          field: user[0].field,
-          networth: user[0].networth
-        },
-        process.env.TOKEN_KEY,
-        { expiresIn: '1h' }
-
-      ); //End of token
-
-
-      res.status(200).json({
-        message: 'Welcome User',
-        user: token 
-      })
-
-
-    }); //End of bcrypt
-  })
+  .then()
   .catch(err => {
-    res.status(500).json({error: err});
-  });
-}); //end of login user post route
+    res.status.json({error: err});
+  }); //End of promise
+
+
+
+}); //End of post signin route
 
 
 router.patch('/:artistId', (req, res, next) => {
